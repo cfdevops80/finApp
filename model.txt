@@ -1,0 +1,9 @@
+{
+    data:
+    {
+        other: "Date Picker",
+        start: "Start",
+        end  : "End",
+        range: "Custom Range"
+    }
+}

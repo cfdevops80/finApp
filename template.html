@@ -1,0 +1,22 @@
+<div class="s-margin">
+    <select class="selectSize" on-change="dateChange">
+        <option value="today">Today</option>
+        <option value="yesterday">Yesterday</option>
+        <option value="thisWeek">This Week</option>
+        <option value="lastWeek">Last Week</option>
+        <option value="thisMonth">This Month</option>
+        <option value="lastMonth">Last Month</option>
+        <option value="other">{{other}}</option>
+        <option value="range">{{range}}</option>
+    </select>
+    <div class="s-horizontal" id="customRange">
+        <div class="s-text">Custom Date Range: </div>
+        <div class="s-compare" on-click="start">{{start}}</div>
+        <div style="display: hidden;" id="startDate"></div>
+        <div class="s-text">to</div>
+        <div class="s-compare" on-click="end">{{end}}</div>
+        <div style="display: hidden;" id="endDate"></div>
+        <div class="icon-checkmark view-superman-value s-circle" on-click="go"></div>
+    </div>
+</div>
+<div id="amChart" style="width:100%; height:90%;"></div>
