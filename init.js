@@ -62,5 +62,5 @@ model.on("end", function (event) {
 });
 
 model.on("go", function (event) {
-  model.fire("changeChart", [start, end])
+  model.fire("changeChart")
 });

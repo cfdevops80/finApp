@@ -3,8 +3,6 @@ var selectTarget = template.view.querySelector(".selectSize");
 console.log(selectTarget.value);
 
 selectTarget.value = "thisWeek"
-// var title = myTarget.navName;
-// var queryData = query("stackRactive");
 
 function balloonFunctionCustom(graphDataItem, graph) {
   return graph.title + " : " + graphDataItem.values.value;
