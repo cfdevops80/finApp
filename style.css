@@ -54,3 +54,7 @@
     background-color:#63b4e4;
     cursor: pointer;
 }
+#amChartXtitle {
+    text-align: center;
+    font-weight: 700;
+}

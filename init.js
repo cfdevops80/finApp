@@ -11,18 +11,12 @@ var end = "End";
 
 var eventMappingName = {
   "line": "changeLineChart",
-  "buble": "changeBubleChart"
+  "buble": "changeBubleChart",
+  "bar": "changeBarChart",
 }
 var eventName = eventMappingName["line"]
 
-setTimeout(function () {
-  var showItem = model.queryAll("stackRactive");
-
-  showItem.forEach(function (item) {
-    var test = template.view.querySelector("#customRange");
-    test.style.visibility = "hidden";
-  });
-}, 200);
+model.fire("hideInfo")
 
 model.on("chartTypeChange", function (event) {
   typeSelected = event.node.value;

@@ -137,14 +137,7 @@ if (selected == "other") {
     },
     { periods: true }
   );
-  setTimeout(function () {
-    var showItem = model.queryAll("stackRactive");
-
-    showItem.forEach(function (item) {
-      var test = template.view.querySelector("#customRange");
-      test.style.visibility = "hidden";
-    });
-  }, 200);
+  model.fire("hideInfo")
 }
 else if (selected == "range") {
   var startDateTarget = template.view.querySelector("#startDate");
@@ -171,15 +164,7 @@ else if (selected == "range") {
     }
   );
 } else {
-  setTimeout(function () {
-    var showItem = model.queryAll("stackRactive");
-
-    showItem.forEach(function (item) {
-      var test = template.view.querySelector("#customRange");
-
-      test.style.visibility = "hidden";
-    });
-  }, 200);
+  model.fire("hideInfo")
   setTimeout(function () {
     finstack.eval(
       'readAll(navName == "PltEff" or navName == "PltHG").hisRead(2024-03-20..2024-03-21)',
