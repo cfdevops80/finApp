@@ -1,6 +1,6 @@
 var template = this;
 var model = this.ractive;
-var selectTarget = template.view.querySelector(".selectSize");
+var selectTarget = template.view.querySelector(".selectSize2");
 var selected = selectTarget.value;
 console.log(selected);
 
@@ -125,7 +125,7 @@ if (selected == "other") {
       }
       setTimeout(function () {
         finstack.eval(
-          'readAll(power and connRef->dis=="Chiller 1 ").hisRead(' +
+          'readAll({attribute} and {query_table}).hisRead(' +
             query +
             ").hisRollupAuto(null,null).hisClip",
           function (data) {
