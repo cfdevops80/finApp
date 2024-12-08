@@ -27,7 +27,7 @@
     cursor: pointer;
     background-color: #ededed;
 }
-.selectSize{
+.selectSize, .selectTypeChart{
     width: 210px;
     height: 30px;
     margin-right: 50px;
@@ -36,6 +36,7 @@
     flex-direction: row;
     align-items: center;
     font-weight: bold;
+    display: flex;
 }
 .s-circle{
     border-radius: 50%;

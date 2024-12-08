@@ -146,7 +146,7 @@ if (selected == "other") {
     });
   }, 200);
 }
-if (selected == "range") {
+else if (selected == "range") {
   var startDateTarget = template.view.querySelector("#startDate");
   var endDateTarget = template.view.querySelector("#endDate");
   var start = startDateTarget.value;

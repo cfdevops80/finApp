@@ -9,6 +9,12 @@ var selected = "thisWeek";
 var start = "Start";
 var end = "End";
 
+var eventMappingName = {
+  "line": "changeLineChart",
+  "buble": "changeBubleChart"
+}
+var eventName = eventMappingName["line"]
+
 setTimeout(function () {
   var showItem = model.queryAll("stackRactive");
 
@@ -18,10 +24,19 @@ setTimeout(function () {
   });
 }, 200);
 
+model.on("chartTypeChange", function (event) {
+  typeSelected = event.node.value;
+  console.log("Chart Type Select", typeSelected)
+  if (eventMappingName.hasOwnProperty(typeSelected)) {
+    eventName = eventMappingName[typeSelected]
+  }
+  model.fire(eventName)
+});
+
 model.on("dateChange", function (event) {
   selected = event.node.value;
   if (selected == "other") {
-    model.fire("changeChart")
+    model.fire(eventName)
   } else if (selected == "range") {
     setTimeout(function () {
       model.set("other", "Date Picker");
@@ -33,7 +48,7 @@ model.on("dateChange", function (event) {
       });
     }, 200);
   } else {
-    model.fire("changeChart")
+    model.fire(eventName)
   }
 });
 
@@ -62,5 +77,5 @@ model.on("end", function (event) {
 });
 
 model.on("go", function (event) {
-  model.fire("changeChart")
+  model.fire(eventName)
 });

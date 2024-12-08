@@ -1,6 +1,6 @@
 var template = this;
 var model = this.ractive;
-var selectTarget = template.view.querySelector(".selectSize2");
+var selectTarget = template.view.querySelector(".selectSize");
 var selected = selectTarget.value;
 console.log(selected);
 
@@ -125,7 +125,7 @@ if (selected == "other") {
       }
       setTimeout(function () {
         finstack.eval(
-          'readAll({attribute} and {query_table}).hisRead(' +
+          'readAll(power and connRef->dis=="Chiller 1 ").hisRead(' +
             query +
             ").hisRollupAuto(null,null).hisClip",
           function (data) {
@@ -168,7 +168,7 @@ if (selected == "other") {
     });
   }, 200);
 }
-if (selected == "range") {
+else if (selected == "range") {
     var startDateTarget = template.view.querySelector("#startDate");
     var endDateTarget = template.view.querySelector("#endDate");
     var start = startDateTarget.value
