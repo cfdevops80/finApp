@@ -14,6 +14,31 @@
         <option value="other">{{other}}</option>
         <option value="range">{{range}}</option>
     </select>
+    <select style="display: block;" class="selectLineChartType" on-change="typeChange">
+        <option value="1">Figure 1: Super-imposed plot of 24 hr Cooling Load Profile RT</option>
+        <option value="3">Figure 3: Super-imposed plot of daily chilled water supply/return temperature C</option>
+        <option value="4">Figure 4: Super-imposed plot of daily chilled water temperature difference oC</option>
+        <option value="5">Figure 5: Super-imposed plot of daily condenser water supply/return temperature oC</option>
+        <option value="6">Figure 6: Super-imposed plot of daily condenser water temperature difference oC</option>
+        <option value="7">Figure 7: Super-imposed plot of daily chilled water GPM/RT</option>
+        <option value="8">Figure 8: Super-imposed plot of daily condenser water GPM/RT</option>
+        <option value="10">Figure 10: Super-imposed plot of daily chiller efficiency kW/RT</option>
+        <option value="11">Figure 11: Super-imposed plot of daily chilled water pump efficiency kW/RT</option>
+        <option value="12">Figure 12: Super-imposed plot of daily condenser water pump efficiency kW/RT</option>
+        <option value="13">Figure 13: Super-imposed plot of daily cooling tower efficiency kW/RT</option>
+        <option value="14">Figure 14: Super-imposed plot of daily chiller plant system efficiency kW/RT</option>
+        <option value="19">Figure 19: System Level Heat Balance Plot</option>
+    </select>
+    <select style="display: none;" class="selectBarChartType" on-change="typeChange" >
+        <option value="2">Figure 2: Histogram of Cooling Load Occurrences</option>
+    </select>
+    <select style="display: none;" class="selectBubleChartType" on-change="typeChange">
+        <option value="15">Figure 15: Scatter plot of chiller plant efficiency over cooling load</option>
+        <option value="16">Figure 16: Scatter plot of chilled water pump efficiency over cooling load</option>
+        <option value="17">Figure 17: Scatter plot of condenser water pump efficiency over cooling load</option>
+        <option value="18">Figure 18: Scatter plot of cooling tower efficiency over cooling load</option>
+    </select>
+    <div style="display: hidden;" id="chartQuery"></div>
     <div class="s-horizontal" id="customRange">
         <div class="s-text">Custom Date Range: </div>
         <div class="s-compare" on-click="start">{{start}}</div>

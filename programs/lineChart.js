@@ -2,7 +2,10 @@ var template = this;
 var model = this.ractive;
 var selectTarget = template.view.querySelector(".selectSize");
 var selected = selectTarget.value;
-console.log(selected);
+
+var chartDataTarget = template.view.querySelector("#chartQuery");
+var chartData = JSON.parse(chartDataTarget.value);
+console.log(selected, chartDataTarget.value);
 
 function balloonFunctionCustom(graphDataItem, graph) {
   return graph.title + " : " + graphDataItem.values.value;
@@ -60,7 +63,7 @@ function convertRawDataToChartData(
   });
 }
 
-function makeAmChart(chartElement, points, uniqueDates) {
+function makeAmChart(chartElement, points, uniqueDates, chartTitle) {
   return AmCharts.makeChart(
     chartElement,
     {
@@ -77,8 +80,7 @@ function makeAmChart(chartElement, points, uniqueDates) {
         parseDates: true,
         gridAlpha: 0.1,
         axisAlpha: 0.5,
-        title:
-          "Figure 10: Super-imposed plot of daily chiller efficiency kW/RT",
+        title: chartTitle,
       },
       startDuration: 1,
       chartCursor: {
@@ -125,7 +127,9 @@ if (selected == "other") {
       }
       setTimeout(function () {
         finstack.eval(
-          'readAll(power and connRef->dis=="Chiller 1 ").hisRead(' +
+          "readAll(" +
+            chartData['query'] +
+            ").hisRead(" +
             query +
             ").hisRollupAuto(null,null).hisClip",
           function (data) {
@@ -147,7 +151,7 @@ if (selected == "other") {
             });
 
             var amChartEle = template.view.querySelector("#amChart");
-            makeAmChart(amChartEle, newPoints, uniqueDates);
+            makeAmChart(amChartEle, newPoints, uniqueDates, chartData['title']);
           }
         );
       }, 200);
@@ -159,16 +163,17 @@ if (selected == "other") {
     },
     { periods: true }
   );
-  model.fire("hideInfo")
-}
-else if (selected == "range") {
-    var startDateTarget = template.view.querySelector("#startDate");
-    var endDateTarget = template.view.querySelector("#endDate");
-    var start = startDateTarget.value
-    var end = endDateTarget.value
-    console.log(start, end)
+  model.fire("hideInfo");
+} else if (selected == "range") {
+  var startDateTarget = template.view.querySelector("#startDate");
+  var endDateTarget = template.view.querySelector("#endDate");
+  var start = startDateTarget.value;
+  var end = endDateTarget.value;
+  console.log(start, end);
   finstack.eval(
-    'readAll(power and connRef->dis=="Chiller 1 ").hisRead(' +
+    "readAll(" +
+      chartData['query'] +
+      ").hisRead(" +
       start +
       ".." +
       end +
@@ -186,14 +191,16 @@ else if (selected == "range") {
       });
 
       var amChartEle = template.view.querySelector("#amChart");
-      makeAmChart(amChartEle, newPoints, uniqueDates);
+      makeAmChart(amChartEle, newPoints, uniqueDates, chartData['title']);
     }
   );
 } else {
-  model.fire("hideInfo")
+  model.fire("hideInfo");
   setTimeout(function () {
     finstack.eval(
-      'readAll(power and connRef->dis=="Chiller 1 ").hisRead(' +
+      "readAll(" +
+        chartData['query'] +
+        ").hisRead(" +
         selected +
         ").hisRollupAuto(null,null).hisClip",
       function (data) {
@@ -214,7 +221,7 @@ else if (selected == "range") {
         });
 
         var amChartEle = template.view.querySelector("#amChart");
-        makeAmChart(amChartEle, newPoints, uniqueDates);
+        makeAmChart(amChartEle, newPoints, uniqueDates, chartData['title']);
       }
     );
   }, 200);
