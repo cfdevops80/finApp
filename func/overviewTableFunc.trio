@@ -1,0 +1,35 @@
+(filter:"equip") => do
+    equips: readAll(filter.parseFilter)
+    rows: []
+    cols: []
+  
+    equips.each x=> cols = cols.addAll(readAll(point and equipRef->navName==x->navName).colToList("navName"))
+    cols = cols.unique.sort
+    equips.each x=> do
+      c: 1
+      t: {label:true, name: x.dis}
+      cols.each y=> do
+        g: readAll(point and equipRef==x->id and navName==cols[c -1])
+        if(g.size > 0) do
+          g = g[0]
+          t = t.set("val"+c+"Id","@"+g->id).set("val"+c+"Description", "")
+          t = t.set("val"+c, if(g.has("curVal")) do
+            if(g->curVal.isNumber) do
+              u: g->curVal.unit
+              if(u == null) g->curVal.finPrecision(2).toStr
+              else g->curVal.finPrecision(2) + u
+            end else g->curVal.toStr
+          end else 0)
+          t = t.set("val"+c+"Type", if(g.has("kind")) g->kind.lower else "")
+        end
+        c = c + 1
+      end
+      rows = rows.add(t)
+    end
+    cols = cols.map((x,y)=> do
+      y = y + 1
+      {label: x, property: "val"+y, rotate: true, type: "val"+y+"Type", id: "val"+y+"Id", description: "val"+y+"Description"}
+    end)
+    cols = cols.insert(0,{label: "", property: "label", rotate: "true", type: "label"})
+    {data: {columns: cols, rows: rows}}
+  end
