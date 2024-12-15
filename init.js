@@ -300,15 +300,9 @@ model.on("start", function (event) {
     start = moment(data.range.start).format("YYYY-MM-DD");
     var startDateTarget = template.view.querySelector("#startDate");
     startDateTarget.value = start
-    var endDateTarget = template.view.querySelector("#endDate");
-    endDateTarget.value = end
     var startPretty = new moment(start).format("MMM D, YYYY");
-    var endPretty = moment(start).add(6, 'days').format("MMM D, YYYY");
     model.set("start", startPretty);
-    model.set("end", endPretty)
     console.log("start", startPretty);
-    console.log("end", endPretty);
-
   });
 });
 
@@ -318,13 +312,8 @@ model.on("end", function (event) {
     end = moment(data.range.end).format("YYYY-MM-DD");
     var endDateTarget = template.view.querySelector("#endDate");
     endDateTarget.value = end
-    var startDateTarget = template.view.querySelector("#startDate");
-    startDateTarget.value = start
     var endPretty = new moment(end).format("MMM D, YYYY");
-    var startPretty = moment(end).subtract(6, 'days').format("MMM D, YYYY");
-    model.set("start", startPretty)
     model.set("end", endPretty);
-    console.log("start", startPretty)
     console.log("end", endPretty);
   });
 });
