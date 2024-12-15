@@ -126,6 +126,7 @@ if (selected == "other") {
         prettyDate = startPretty + " to " + endPretty;
       }
       setTimeout(function () {
+        console.log("readAll(" + chartData['query'] + ").hisRead(" + query + ").hisRollupAuto(null,null).hisClip")
         finstack.eval(
           "readAll(" +
             chartData['query'] +
@@ -170,6 +171,7 @@ if (selected == "other") {
   var start = startDateTarget.value;
   var end = endDateTarget.value;
   console.log(start, end);
+  console.log("readAll(" + chartData['query'] + ").hisRead(" + start + ".." + end + ").hisRollupAuto(null,null).hisClip");
   finstack.eval(
     "readAll(" +
       chartData['query'] +
@@ -197,6 +199,7 @@ if (selected == "other") {
 } else {
   model.fire("hideInfo");
   setTimeout(function () {
+    console.log("readAll(" + chartData['query'] + ").hisRead(" + selected + ").hisRollupAuto(null,null).hisClip");
     finstack.eval(
       "readAll(" +
         chartData['query'] +

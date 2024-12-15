@@ -18,8 +18,8 @@ var eventName = eventMappingName["line"]
 
 var classMappingName = {
   "line": "selectLineChartType",
-  "buble": "selectBarChartType",
-  "bar": "selectBubleChartType",
+  "buble": "selectBubleChartType",
+  "bar": "selectBarChartType",
 }
 
 var typeChartMapping = {
@@ -68,20 +68,87 @@ var typeChartMapping = {
     value: 10,
     query: 'efficiency and equipRef->navName=="Chiller Total"'
   },
+  10.1: {
+    title: "Super-imposed plot of daily Chiller 1 efficiency kW/RT",
+    value: 10.1,
+    query: 'efficiency and equipRef->navName=="Chiller 1"'
+  },
+  10.2: {
+    title: "Super-imposed plot of daily Chiller 2 efficiency kW/RT",
+    value: 10.2,
+    query: 'efficiency and equipRef->navName=="Chiller 2"'
+  },
   11: {
     title: "Super-imposed plot of daily chilled water pump efficiency kW/RT",
     value: 11,
     query: 'efficiency and equipRef->navName=="Primary Chilled Water Pump Total"'
+  },
+  
+  11.1: {
+    title: "Super-imposed plot of daily Primary Chilled Water Pump 1 efficiency kW/RT",
+    value: 11.1,
+    query: 'efficiency and equipRef->navName=="Primary Chilled Water Pump 1"'
+  },
+  
+  11.2: {
+    title: "Super-imposed plot of daily Primary Chilled Water Pump 2 efficiency kW/RT",
+    value: 11.2,
+    query: 'efficiency and equipRef->navName=="Primary Chilled Water Pump 2"'
+  },
+  11.3: {
+    title: "Super-imposed plot of daily Primary Chilled Water Pump 3 efficiency kW/RT",
+    value: 11.3,
+    query: 'efficiency and equipRef->navName=="Primary Chilled Water Pump 3"'
+  },
+  11.4: {
+    title: "Super-imposed plot of daily Primary Chilled Water Pump 4 efficiency kW/RT",
+    value: 11.4,
+    query: 'efficiency and equipRef->navName=="Primary Chilled Water Pump 4"'
   },
   12: {
     title: "Super-imposed plot of daily condenser water pump efficiency kW/RT",
     value: 12,
     query: 'efficiency and equipRef->navName=="Condenser Water Pump Total"'
   },
+  12.1: {
+    title: "Super-imposed plot of daily Condenser Water Pump 1 efficiency kW/RT",
+    value: 12.1,
+    query: 'efficiency and equipRef->navName=="Condenser Water Pump 1"'
+  },
+  12.2: {
+    title: "Super-imposed plot of daily Condenser Water Pump 2 efficiency kW/RT",
+    value: 12.2,
+    query: 'efficiency and equipRef->navName=="Condenser Water Pump 2"'
+  },
+  12.3: {
+    title: "Super-imposed plot of daily Condenser Water Pump 3 efficiency kW/RT",
+    value: 12.3,
+    query: 'efficiency and equipRef->navName=="Condenser Water Pump 3"'
+  },
+  12.4: {
+    title: "Super-imposed plot of daily Condenser Water Pump Main efficiency kW/RT",
+    value: 12.4,
+    query: 'efficiency and equipRef->navName=="Condenser Water Pump Main"'
+  },
   13: {
     title: "Super-imposed plot of daily cooling tower efficiency kW/RT",
     value: 13,
     query: 'efficiency and equipRef->navName=="Cooling Tower Total"'
+  },
+  13.1: {
+    title: "Super-imposed plot of daily Cooling Tower 1 efficiency kW/RT",
+    value: 13.1,
+    query: 'efficiency and equipRef->navName=="Cooling Tower 1"'
+  },
+  13.2: {
+    title: "Super-imposed plot of daily Cooling Tower 2 efficiency kW/RT",
+    value: 13.2,
+    query: 'efficiency and equipRef->navName=="Cooling Tower 2"'
+  },
+  13.3: {
+    title: "Super-imposed plot of daily Cooling Tower Main efficiency kW/RT",
+    value: 13.3,
+    query: 'efficiency and equipRef->navName=="Cooling Tower Main"'
   },
   14: {
     title: "Super-imposed plot of daily chiller plant system efficiency kW/RT",
@@ -98,15 +165,70 @@ var typeChartMapping = {
     value: 16,
     query: '(efficiency and equipRef->navName=="Primary Chilled Water Pump Total") or navName == "PltHG"'
   },
+  16.1: {
+    title: "Scatter plot of Primary Chilled Water Pump 1 efficiency over cooling load",
+    value: 16.1,
+    query: '(efficiency and equipRef->navName=="Primary Chilled Water Pump 1") or navName == "PltHG"'
+  },
+  16.2: {
+    title: "Scatter plot of Primary Chilled Water Pump 2 efficiency over cooling load",
+    value: 16.2,
+    query: '(efficiency and equipRef->navName=="Primary Chilled Water Pump 2") or navName == "PltHG"'
+  },
+  16.3: {
+    title: "Scatter plot of Primary Chilled Water Pump 3 efficiency over cooling load",
+    value: 16.3,
+    query: '(efficiency and equipRef->navName=="Primary Chilled Water Pump 3") or navName == "PltHG"'
+  },
+  16.4: {
+    title: "Scatter plot of Primary Chilled Water Pump Main efficiency over cooling load",
+    value: 16.4,
+    query: '(efficiency and equipRef->navName=="Primary Chilled Water Pump Main") or navName == "PltHG"'
+  },
   17: {
     title: "Scatter plot of condenser water pump efficiency over cooling load",
     value: 17,
     query: '(efficiency and equipRef->navName=="Condenser Water Pump Total") or navName == "PltHG"'
   },
+  17.1: {
+    title: "Scatter plot of Condenser Water Pump 1 efficiency over cooling load",
+    value: 17.1,
+    query: '(efficiency and equipRef->navName=="Condenser Water Pump 1") or navName == "PltHG"'
+  },
+  17.2: {
+    title: "Scatter plot of Condenser Water Pump 2 efficiency over cooling load",
+    value: 17.2,
+    query: '(efficiency and equipRef->navName=="Condenser Water Pump 2") or navName == "PltHG"'
+  },
+  17.3: {
+    title: "Scatter plot of Condenser Water Pump 3 efficiency over cooling load",
+    value: 17.3,
+    query: '(efficiency and equipRef->navName=="Condenser Water Pump 3") or navName == "PltHG"'
+  },
+  17.4: {
+    title: "Scatter plot of Condenser Water Pump Main efficiency over cooling load",
+    value: 17.4,
+    query: '(efficiency and equipRef->navName=="Condenser Water Pump Main") or navName == "PltHG"'
+  },
   18: {
     title: "Scatter plot of cooling tower efficiency over cooling load",
     value: 18,
     query: 'navName == "PltHG" or (efficiency and equipRef->navName=="Cooling Tower Total")'
+  },
+  18.1: {
+    title: "Scatter plot of Cooling Tower 1 efficiency over cooling load",
+    value: 18.1,
+    query: 'navName == "PltHG" or (efficiency and equipRef->navName=="Cooling Tower 1")'
+  },
+  18.2: {
+    title: "Scatter plot of Cooling Tower 2 efficiency over cooling load",
+    value: 18.2,
+    query: 'navName == "PltHG" or (efficiency and equipRef->navName=="Cooling Tower 2")'
+  },
+  18.3: {
+    title: "Scatter plot of Cooling Tower Main efficiency over cooling load",
+    value: 18.3,
+    query: 'navName == "PltHG" or (efficiency and equipRef->navName=="Cooling Tower Main")'
   },
   19: {
     title: "System Level Heat Balance Plot",
@@ -178,9 +300,15 @@ model.on("start", function (event) {
     start = moment(data.range.start).format("YYYY-MM-DD");
     var startDateTarget = template.view.querySelector("#startDate");
     startDateTarget.value = start
+    var endDateTarget = template.view.querySelector("#endDate");
+    endDateTarget.value = end
     var startPretty = new moment(start).format("MMM D, YYYY");
+    var endPretty = moment(start).add(6, 'days').format("MMM D, YYYY");
     model.set("start", startPretty);
+    model.set("end", endPretty)
     console.log("start", startPretty);
+    console.log("end", endPretty);
+
   });
 });
 
@@ -190,8 +318,13 @@ model.on("end", function (event) {
     end = moment(data.range.end).format("YYYY-MM-DD");
     var endDateTarget = template.view.querySelector("#endDate");
     endDateTarget.value = end
+    var startDateTarget = template.view.querySelector("#startDate");
+    startDateTarget.value = start
     var endPretty = new moment(end).format("MMM D, YYYY");
+    var startPretty = moment(end).subtract(6, 'days').format("MMM D, YYYY");
+    model.set("start", startPretty)
     model.set("end", endPretty);
+    console.log("start", startPretty)
     console.log("end", endPretty);
   });
 });
