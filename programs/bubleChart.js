@@ -8,6 +8,7 @@ console.log(selected);
 
 var chartDataTarget = template.view.querySelector("#chartQuery");
 var chartData = JSON.parse(chartDataTarget.value);
+console.log("chartDate:",  chartData);
 
 function balloonFunctionCustom(graphDataItem, graph) {
   return graph.title + " : " + graphDataItem.values.value;
@@ -114,6 +115,11 @@ if (selected == "other") {
         prettyDate = startPretty + " to " + endPretty;
       }
       setTimeout(function () {
+        console.log(          "readAll(" +
+          chartData['query'] +
+          ").hisRead(" +
+            query +
+            ")")
         finstack.eval(
           "readAll(" +
           chartData['query'] +
@@ -151,6 +157,13 @@ else if (selected == "range") {
   var start = startDateTarget.value;
   var end = endDateTarget.value;
   console.log(start, end);
+  console.log("readAll(" +  
+      chartData['query'] +
+      ").hisRead(" +
+      start +
+      ".." +
+      end +
+      ")")
   finstack.eval(
       "readAll(" +  
       chartData['query'] +
@@ -174,6 +187,9 @@ else if (selected == "range") {
 } else {
   model.fire("hideInfo")
   setTimeout(function () {
+  console.log( "readAll(" +  
+    chartData['query'] +
+    ").hisRead(2024-03-20..2024-03-21)")
   finstack.eval(
       "readAll(" +  
       chartData['query'] +

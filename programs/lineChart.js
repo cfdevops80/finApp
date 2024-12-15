@@ -60,6 +60,8 @@ function convertRawDataToChartData(
     groupedByTime[time][`date${dayIndex === 0 ? 7 : dayIndex}`] = p.v0
       ? p.v0.toFixed(2)
       : 0;
+
+    groupedByTime[time][`date${dayIndex === 0 ? 7 : dayIndex}`] = p.v0 ? p.v0.toString().includes('e') ? 0 : parseFloat(p.v0.toFixed(2)): 0;
   });
 }
 

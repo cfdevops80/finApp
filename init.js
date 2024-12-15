@@ -260,18 +260,32 @@ model.on("chartTypeChange", function (event) {
       }
     }
   }
+
+  var chartQueryTarget = template.view.querySelector("#chartQuery");
+  switch(typeSelected){
+    case  "line":
+      chartQueryTarget.value = JSON.stringify(typeChartMapping[1])
+      break;
+    case "buble": 
+      chartQueryTarget.value = JSON.stringify(typeChartMapping[15])
+      break;
+    case "bar": 
+      chartQueryTarget.value = JSON.stringify(typeChartMapping[2])
+      break;
+  }
+
   model.fire(eventName)
 });
 
 model.on("typeChange", function (event) {
   typeSelected = event.node.value;
-  console.log("Chart Value Select", typeSelected)
+  console.log("Chart Value Select", typeSelected);
 
   if (typeChartMapping.hasOwnProperty(typeSelected)) {
     var chartQueryTarget = template.view.querySelector("#chartQuery");
     chartQueryTarget.value = JSON.stringify(typeChartMapping[typeSelected])
   }
-
+  console.log("eventName: ", eventName);
   model.fire(eventName)
 })
 
