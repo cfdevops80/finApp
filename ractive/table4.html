@@ -1,0 +1,25 @@
+<div class="table-container">
+    <table class="daily-average-table">
+        <thead>
+            <tr>
+                <th rowspan="2">Daily Average Reading</th>
+                <th colspan="2">Period</th>
+                <th rowspan="2">Unit</th>
+            </tr>
+            <tr>
+                <th>Daytime^</th>
+                <th>Night-time~</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each data}}
+            <tr>
+                <td>{{title}}</td>
+                <td>{{daytime}}</td>
+                <td>{{nighttime}}</td>
+                <td>{{unit}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>

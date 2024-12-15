@@ -1,24 +1,42 @@
+var template = this;
+
 var queryMapping = {
     "CoolingLoadRT": `navName=="PltLoadTotal"`,
-    // "CoolingLoadDensity(AirConArea)": "", // TODO: QA
     "PowerConsumption": `navName=="PltPowerTotal"`,
     "ChilledWaterSupplyTemperature":`navName=="ChWHeaderSTemp"`,
     "ChilledWaterReturnTemperature":`navName=="ChWHeaderRTemp"`,
     "ChilledWaterDeltaT": `navName=="ChWHeaderDeltaT"`,
     "ChilledWaterFlowRate": `navName=="ChWHeaderFlow"`,
-    // "ChilledWaterFlowRateVsCoolingLoad": `navName=="ChWBypassFlow`, // TODO: QA
-    "CondenserHeatRejection": `navName=="PltHR"`, // TODO: QA
+    "CondenserHeatRejection": `navName=="PltHRTotal"`,
     "CondenserWaterSupplyTemperature": `navName=="CWHeaderSTemp"`,
     "CondenserWaterReturnTemperature": `navName=="CWHeaderRTemp"`,
     "CondenserWaterDeltaT": `navName=="CWHeaderDeltaT"`,
     "CondenserWaterFlowRate": `navName=="CWHeaderFlow"`,
-    // "CondenserWaterFlowRateVsCoolingLoad": `navName==""`, // TODO: QA
     "Chiller(s)Efficiency": `efficiency and equipRef->navName=="Chiller Total"`,// TODO: QA
-    "ChilledWaterPump(s)Efficiency": `efficiency and equipRef->navName=="Primary Chilled Water Pump Total"`, // TODO: QA
-    "CondenserWaterPump(s)Efficiency": `efficiency and equipRef->navName=="Condenser Water Pump Total"`, // TODO: QA
-    "CoolingTower(s)Efficiency": `efficiency and equipRef->navName=="Cooling Tower Total"`, // TODO: QA
-    "OverallChillerPlantEfficiency": `navName=="PltEff"`, // TODO: QA
+    "ChilledWaterPump(s)Efficiency": `efficiency and equipRef->navName=="Primary Chilled Water Pump Total"`,
+    "CondenserWaterPump(s)Efficiency": `efficiency and equipRef->navName=="Condenser Water Pump Total"`,
+    "CoolingTower(s)Efficiency": `efficiency and equipRef->navName=="Cooling Tower Total"`,
+    "OverallChillerPlantEfficiency": `navName=="PltEff"`,
 }
+
+const tableData = [
+    { title: "Cooling Load", unit: "RTh", daytime: null, nighttime: null, keyMap: "CoolingLoadRT" },
+    { title: "Power Consumption", unit: "kWh", daytime: null, nighttime: null, keyMap: "PowerConsumption" },
+    { title: "Chilled water supply temperature", unit: "°C", daytime: null, nighttime: null, keyMap: "ChilledWaterSupplyTemperature" },
+    { title: "Chilled water return temperature", unit: "°C", daytime: null, nighttime: null, keyMap: "ChilledWaterReturnTemperature" },
+    { title: "Chilled water delta T", unit: "°C", daytime: null, nighttime: null, keyMap: "ChilledWaterDeltaT" },
+    { title: "Chilled water flow rate", unit: "l/s", daytime: null, nighttime: null, keyMap: "ChilledWaterFlowRate" },
+    { title: "*Condenser heat rejection", unit: "HRT", daytime: null, nighttime: null, keyMap: "CondenserHeatRejection" },
+    { title: "*Condenser water supply temperature", unit: "°C", daytime: null, nighttime: null, keyMap: "CondenserWaterSupplyTemperature" },
+    { title: "*Condenser water return temperature", unit: "°C", daytime: null, nighttime: null, keyMap: "CondenserWaterReturnTemperature" },
+    { title: "*Condenser water delta T", unit: "°C", daytime: null, nighttime: null, keyMap: "CondenserWaterDeltaT" },
+    { title: "*Condenser water flow rate", unit: "l/s", daytime: null, nighttime: null, keyMap: "CondenserWaterFlowRate" },
+    { title: "Chiller(s) efficiency", unit: "kW/RT", daytime: null, nighttime: null, keyMap: "Chiller(s)Efficiency" },
+    { title: "Chilled water pump(s) efficiency", unit: "kW/RT", daytime: null, nighttime: null, keyMap: "ChilledWaterPump(s)Efficiency" },
+    { title: "*Condenser water pump(s) efficiency", unit: "kW/RT", daytime: null, nighttime: null, keyMap: "CondenserWaterPump(s)Efficiency" },
+    { title: "*Cooling tower(s) efficiency", unit: "kW/RT", daytime: null, nighttime: null, keyMap: "CoolingTower(s)Efficiency" },
+    { title: "Overall chiller plant efficiency", unit: "kW/RT", daytime: null, nighttime: null, keyMap: "OverallChillerPlantEfficiency" },
+];
 
 const keyMapping = [
     "11pm-7am", "7am-11pm"
@@ -55,44 +73,6 @@ function calculateAverageV0ByTimeRange(data) {
     return averages
 }
 
-function calculateCoolingLoadDensity(area, info) {
-    if (!info['CoolingLoadRT']) return
-    info['CoolingLoadDensity'] = {}
-    keyMapping.map((val) => {
-        info['CoolingLoadDensity'][val] = (Number(area)/Number(info['CoolingLoadRT'][val])).toFixed(2)
-    })
-}
-
-// function calculateHeatReject(info) {
-//     if (!info['CondenserHeatRejection']) return
-
-//     keyMapping.map((val) => {
-//         var temperature = Number(info[''][val]) - Number(info[''][val])
-//         info['CondenserWaterFlowRateVsCoolingLoad'][val] = ((Number(info['CondenserHeatRejection'][val]) * 4.19 * temperature)/3.517).toFixed(2)
-//     })
-// }
-
-function calculateFlowRateVsCoolingLoad(info) {
-    if (!info['CoolingLoadRT'] || !info['CondenserHeatRejection']) return
-    info['ChilledWaterFlowRateVsCoolingLoad'] = {}
-    info['CondenserWaterFlowRateVsCoolingLoad'] = {}
-
-    keyMapping.map((val) => {
-        info['ChilledWaterFlowRateVsCoolingLoad'][val] = (Number(info['CoolingLoadRT'][val])/Number(info['ChilledWaterFlowRate'][val])).toFixed(2)
-
-        info['CondenserWaterFlowRateVsCoolingLoad'][val] = (Number(info['CondenserHeatRejection'][val])/Number(info['CondenserWaterFlowRate'][val])).toFixed(2)
-    })
-}
-
-function calculateInfo(info) {
-    var area = 100 //TODO:
-    console.log("info")
-
-    calculateCoolingLoadDensity(area, info)
-    // calculateHeatReject(info)
-    calculateFlowRateVsCoolingLoad(info)
-}
-
 async function fetchAndProcessData() {
     const info = {};
     const promises = Object.keys(queryMapping).map((type) => {
@@ -104,6 +84,12 @@ async function fetchAndProcessData() {
                     const queryData = data.result.toObj();
                     const res = calculateAverageV0ByTimeRange(queryData);
                     info[type] = { ...res };
+                    tableData.map((e) => {
+                        if(e.keyMap == type) {
+                            e.daytime = res["7am-11pm"]
+                            e.nighttime = res["11pm-7am"]
+                        }
+                    })
                     resolve();
                 }
             );
@@ -111,12 +97,9 @@ async function fetchAndProcessData() {
     });
 
     await Promise.all(promises);
-    console.log(info)
-    const area = 100; // TODO: Replace with actual value
-    calculateCoolingLoadDensity(area, info);
-    calculateFlowRateVsCoolingLoad(info);
 
-    console.log("Final Info:", info);
+    console.log("Final Info:", info, tableData);
+    template.data = tableData
 }
 
 fetchAndProcessData();
