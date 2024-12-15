@@ -34,9 +34,14 @@ var typeChartMapping = {
     query: 'navName == "PltHG"'
   },
   3: {
-    title: "Super-imposed plot of daily chilled water supply/return temperature C",
+    title: "Super-imposed plot of daily chilled water return temperature C",
     value: 3,
     query: 'navName == "ChWHeaderRTemp"'
+  },
+  3.1: {
+    title: "Super-imposed plot of daily chilled water supply temperature C",
+    value: 3.1,
+    query: 'navName == "ChWHeaderSTemp"'
   },
   4: {
     title: "Super-imposed plot of daily chilled water temperature difference oC",
@@ -44,9 +49,14 @@ var typeChartMapping = {
     query: 'navName == "ChWHeaderDeltaT"'
   },
   5: {
-    title: "Super-imposed plot of daily condenser water supply/return temperature oC",
+    title: "Super-imposed plot of daily condenser water return temperature oC",
     value: 5,
     query: 'navName == "CWHeaderRTemp"'
+  },
+  5.1: {
+    title: "Super-imposed plot of daily condenser water supply temperature oC",
+    value: 5.1,
+    query: 'navName == "CWHeaderSTemp"'
   },
   6: {
     title: "Super-imposed plot of daily condenser water temperature difference oC",
@@ -101,9 +111,64 @@ var typeChartMapping = {
     query: 'efficiency and equipRef->navName=="Primary Chilled Water Pump 3"'
   },
   11.4: {
-    title: "Super-imposed plot of daily Primary Chilled Water Pump 4 efficiency kW/RT",
+    title: "Super-imposed plot of daily Primary Chilled Water Pump Main efficiency kW/RT",
     value: 11.4,
-    query: 'efficiency and equipRef->navName=="Primary Chilled Water Pump 4"'
+    query: 'efficiency and equipRef->navName=="Primary Chilled Water Pump Main"'
+  },
+  11.5: {
+    title: "Super-imposed plot of daily Secondary Chilled Water Pump Total efficiency kW/RT",
+    value: 11.5,
+    query: 'efficiency and equipRef->navName=="Secondary Chilled Water Pump Total"'
+  },
+  11.6: {
+    title: "Super-imposed plot of daily Secondary Chilled Water Pump 1 efficiency kW/RT",
+    value: 11.6,
+    query: 'efficiency and equipRef->navName=="Secondary Chilled Water Pump 1"'
+  },
+  11.7: {
+    title: "Super-imposed plot of daily Secondary Chilled Water Pump 2 efficiency kW/RT",
+    value: 11.7,
+    query: 'efficiency and equipRef->navName=="Secondary Chilled Water Pump 2"'
+  },
+  11.8: {
+    title: "Super-imposed plot of daily Secondary Chilled Water Pump 3 efficiency kW/RT",
+    value: 11.8,
+    query: 'efficiency and equipRef->navName=="Secondary Chilled Water Pump 3"'
+  },
+  11.9: {
+    title: "Super-imposed plot of daily Secondary Chilled Water Pump 4 efficiency kW/RT",
+    value: 11.9,
+    query: 'efficiency and equipRef->navName=="Secondary Chilled Water Pump 4"'
+  },
+  11.10: {
+    title: "Super-imposed plot of daily Secondary Chilled Water Pump 5 efficiency kW/RT",
+    value: 11.10,
+    query: 'efficiency and equipRef->navName=="Secondary Chilled Water Pump 5"'
+  },
+  11.11: {
+    title: "Super-imposed plot of daily Secondary Chilled Water Pump 6 efficiency kW/RT",
+    value: 11.11,
+    query: 'efficiency and equipRef->navName=="Secondary Chilled Water Pump 6"'
+  },
+  11.12: {
+    title: "Super-imposed plot of daily Secondary Chilled Water Pump 7 efficiency kW/RT",
+    value: 11.12,
+    query: 'efficiency and equipRef->navName=="Secondary Chilled Water Pump 7"'
+  },
+  11.13: {
+    title: "Super-imposed plot of daily Secondary Chilled Water Pump 8 efficiency kW/RT",
+    value: 11.13,
+    query: 'efficiency and equipRef->navName=="Secondary Chilled Water Pump 8"'
+  },
+  11.14: {
+    title: "Super-imposed plot of daily Secondary Chilled Water Pump 9 efficiency kW/RT",
+    value: 11.14,
+    query: 'efficiency and equipRef->navName=="Secondary Chilled Water Pump 9"'
+  },
+  11.15: {
+    title: "Super-imposed plot of daily Secondary Chilled Water Pump Main efficiency kW/RT",
+    value: 11.15,
+    query: 'efficiency and equipRef->navName=="Secondary Chilled Water Pump Main"'
   },
   12: {
     title: "Super-imposed plot of daily condenser water pump efficiency kW/RT",
