@@ -1,0 +1,1 @@
+this.ractive.fire("obtainData");
