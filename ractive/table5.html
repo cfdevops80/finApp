@@ -1,0 +1,22 @@
+<div class="table-container">
+  <table class="heat-balance-summary">
+    <thead>
+      <tr>
+        <th rowspan="2"></th>
+        <th rowspan="2">Quantity</th>
+        <th rowspan="2">Unit</th>
+        <th rowspan="2">Formular</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each data}}
+      <tr>
+        <td>{{title}}</td>
+        <td>{{quantity}}</td>
+        <td>{{unit}}</td>
+        <td>{{formular}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

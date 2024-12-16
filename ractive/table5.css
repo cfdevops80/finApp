@@ -1,0 +1,36 @@
+/* Table Container */
+.table-container {
+  overflow-x: auto;
+  margin: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Table Styling */
+.heat-balance-summary {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #000; /* Border around the table */
+  font-size: 14px;
+  text-align: left;
+}
+
+/* Header Styling */
+.heat-balance-summary thead th {
+  border: 1px solid #000;
+  padding: 10px;
+  background-color: #e0e0e0; /* Light gray background */
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Cell Styling */
+.heat-balance-summary td,
+.heat-balance-summary th {
+  border: 1px solid #000; /* Border for all cells */
+  padding: 8px 10px;
+}
+
+/* Alternating Row Color */
+.heat-balance-summary tbody tr:nth-child(even) {
+  background-color: #f9f9f9; /* Light alternating rows */
+}
