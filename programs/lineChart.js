@@ -60,6 +60,8 @@ function convertRawDataToChartData(
     groupedByTime[time][`date${dayIndex === 0 ? 7 : dayIndex}`] = p.v0
       ? p.v0.toFixed(2)
       : 0;
+
+    groupedByTime[time][`date${dayIndex === 0 ? 7 : dayIndex}`] = p.v0 ? p.v0.toString().includes('e') ? 0 : parseFloat(p.v0.toFixed(2)): 0;
   });
 }
 
@@ -126,6 +128,7 @@ if (selected == "other") {
         prettyDate = startPretty + " to " + endPretty;
       }
       setTimeout(function () {
+        console.log("readAll(" + chartData['query'] + ").hisRead(" + query + ").hisRollupAuto(null,null).hisClip")
         finstack.eval(
           "readAll(" +
             chartData['query'] +
@@ -170,6 +173,7 @@ if (selected == "other") {
   var start = startDateTarget.value;
   var end = endDateTarget.value;
   console.log(start, end);
+  console.log("readAll(" + chartData['query'] + ").hisRead(" + start + ".." + end + ").hisRollupAuto(null,null).hisClip");
   finstack.eval(
     "readAll(" +
       chartData['query'] +
@@ -197,6 +201,7 @@ if (selected == "other") {
 } else {
   model.fire("hideInfo");
   setTimeout(function () {
+    console.log("readAll(" + chartData['query'] + ").hisRead(" + selected + ").hisRollupAuto(null,null).hisClip");
     finstack.eval(
       "readAll(" +
         chartData['query'] +
