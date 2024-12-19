@@ -1,9 +1,9 @@
 <div class="s-margin">
-    <select class="selectTypeChart" on-change="chartTypeChange">
+    <!-- <select class="selectTypeChart" on-change="chartTypeChange">
         <option value="line">Line Chart</option>
         <option value="buble">Buble Chart</option>
         <option value="bar">Bar Chart</option>
-    </select>
+    </select> -->
     <select class="selectSize" on-change="dateChange">
         <option value="today">Today</option>
         <option value="yesterday">Yesterday</option>
@@ -14,7 +14,7 @@
         <option value="other">{{other}}</option>
         <option value="range">{{range}}</option>
     </select>
-    <select style="display: block;" class="selectLineChartType" on-change="typeChange">
+    <select style="display: block;"  on-change="typeChange">
         <option value="1">Figure 1: Super-imposed plot of 24 hr Cooling Load Profile RT</option>
         <option value="3">Figure 3: Super-imposed plot of daily chilled water return temperature C</option>
         <option value="3.1">Figure 3.1: Super-imposed plot of daily chilled water supply temperature C</option>
@@ -50,16 +50,11 @@
         <option value="12.4">Figure 12.4: Super-imposed plot of daily Condenser Water Pump Main efficiency kW/RT</option>
         <option value="13">Figure 13: Super-imposed plot of daily Cooling tower total  efficiency kW/RT</option>
         <option value="13.1">Figure 13.1: Super-imposed plot of daily Cooling tower 1  efficiency kW/RT</option>
-        <option value="13.2">Figure 13.1: Super-imposed plot of daily Cooling tower 2 efficiency kW/RT</option>
-        <option value="13.2">Figure 13.1: Super-imposed plot of daily Cooling tower Main efficiency kW/RT</option>
-        
+        <option value="13.2">Figure 13.2: Super-imposed plot of daily Cooling tower 2 efficiency kW/RT</option>
+        <option value="13.3">Figure 13.3: Super-imposed plot of daily Cooling tower Main efficiency kW/RT</option>
         <option value="14">Figure 14: Super-imposed plot of daily chiller plant system efficiency kW/RT</option>
         <option value="19">Figure 19: System Level Heat Balance Plot</option>
-    </select>
-    <select style="display: none;" class="selectBarChartType" on-change="typeChange" >
         <option value="2">Figure 2: Histogram of Cooling Load Occurrences</option>
-    </select>
-    <select style="display: none;" class="selectBubleChartType" on-change="typeChange">
         <option value="15">Figure 15: Scatter plot of chiller plant efficiency over cooling load</option>
         <option value="16">Figure 16: Scatter plot of chilled water pump efficiency over cooling load</option>
         <option value="16.1">Figure 16.1: Scatter plot of Primary Chilled Water Pump 1 efficiency over cooling load</option>
@@ -87,5 +82,5 @@
         <div class="icon-checkmark view-superman-value s-circle" on-click="go"></div>
     </div>
 </div>
-<div id="amChart" style="width:100%; height:90%;"></div>
+<div id="amChart" style="width:100%; height:90%; margin-top: 20px;"></div>
 <div id="amChartXtitle" style="display: hidden;"></div>
