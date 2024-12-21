@@ -5,6 +5,11 @@ console.log(selectTarget);
 var selected = selectTarget.value;
 console.log(selected);
 
+
+var chartDataTarget = template.view.querySelector("#chartQuery");
+var chartData = JSON.parse(chartDataTarget.value);
+console.log("chartDate:",  chartData);
+
 function balloonFunctionCustom(graphDataItem, graph) {
   return graph.title + " : " + graphDataItem.values.value;
 }
@@ -31,7 +36,7 @@ function convertRawDataToBubbleData(realPoints, filteredPoints) {
   });
 }
 
-function makeAmChart(chartElement, points) {
+function makeAmChart(chartElement, points, chartTitle) {
   console.log("-----points--------");
   console.log(points)
   return AmCharts.makeChart(
@@ -44,7 +49,7 @@ function makeAmChart(chartElement, points) {
       dataProvider: points,
       titles: [
         {
-          text: "Plant Efficiency VS Load",
+          text: chartTitle ?? "Plant Efficiency VS Load",
           size: 24,
         },
       ],
@@ -110,8 +115,15 @@ if (selected == "other") {
         prettyDate = startPretty + " to " + endPretty;
       }
       setTimeout(function () {
+        console.log(          "readAll(" +
+          chartData['query'] +
+          ").hisRead(" +
+            query +
+            ")")
         finstack.eval(
-          'readAll(navName == "PltEff" or navName == "PltHG").hisRead(' +
+          "readAll(" +
+          chartData['query'] +
+          ").hisRead(" +
             query +
             ")",
           function (data) {
@@ -125,7 +137,7 @@ if (selected == "other") {
             convertRawDataToBubbleData(realPoints, newPoints);
 
             var amChartEle = template.view.querySelector("#amChart");
-            makeAmChart(amChartEle, newPoints);
+            makeAmChart(amChartEle, newPoints, chartData['title']);
           }
         );
       }, 200);
@@ -145,8 +157,17 @@ else if (selected == "range") {
   var start = startDateTarget.value;
   var end = endDateTarget.value;
   console.log(start, end);
+  console.log("readAll(" +  
+      chartData['query'] +
+      ").hisRead(" +
+      start +
+      ".." +
+      end +
+      ")")
   finstack.eval(
-    'readAll(navName == "PltEff" or navName == "PltHG").hisRead(' +
+      "readAll(" +  
+      chartData['query'] +
+      ").hisRead(" +
       start +
       ".." +
       end +
@@ -160,14 +181,19 @@ else if (selected == "range") {
       convertRawDataToBubbleData(realPoints, newPoints);
 
       var amChartEle = template.view.querySelector("#amChart");
-      makeAmChart(amChartEle, newPoints);
+      makeAmChart(amChartEle, newPoints , chartData['title']);
     }
   );
 } else {
   model.fire("hideInfo")
   setTimeout(function () {
-    finstack.eval(
-      'readAll(navName == "PltEff" or navName == "PltHG").hisRead(2024-03-20..2024-03-21)',
+  console.log( "readAll(" +  
+    chartData['query'] +
+    ").hisRead(2024-03-20..2024-03-21)")
+  finstack.eval(
+      "readAll(" +  
+      chartData['query'] +
+      ").hisRead(2024-03-20..2024-03-21)",
       function (data) {
         queryData = data.result.toObj();
         var realPoints = data.result.toObj();
@@ -177,7 +203,7 @@ else if (selected == "range") {
         convertRawDataToBubbleData(realPoints, newPoints);
 
         var amChartEle = template.view.querySelector("#amChart");
-        makeAmChart(amChartEle, newPoints);
+        makeAmChart(amChartEle, newPoints, chartData['title']);
       }
     );
   }, 200);
