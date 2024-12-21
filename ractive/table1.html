@@ -26,6 +26,9 @@
                             on-blur="cellBlur"
                         >{{cell}}</td>
                     {{/each}}
+                    <td>
+                        <button id="deleteRowBtn" class="add-row-btn" on-click="deleteRow" data-row-index="{{rowIndex}}">Delete</button>
+                    </td>
                 </tr>
             {{/each}}
         </tbody>
