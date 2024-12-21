@@ -3,6 +3,7 @@ this.ractive.fire("obtainData");
 var template = this;
 var model = this.ractive;
 
+const keyOrder = ['id', 'description', 'brand', 'type', 'plateMotor', 'coolingCap', 'chilledWater', 'eff', 'year'];
 
 function updateCsvFile(updatedRows){
     const formattedRows = formatJsonString(updatedRows);
@@ -12,6 +13,86 @@ function updateCsvFile(updatedRows){
         console.log(queryData);
     });
 }
+
+function changeModalStatus() {
+    const modal = template.view.querySelector(".modal");
+    const overlay = template.view.querySelector(".overlay");
+    if (modal.classList.contains("hidden")) {
+        modal.classList.remove("hidden")
+    }
+    else {
+        modal.classList.add("hidden")
+    }
+
+    if (overlay.classList.contains("hidden")) {
+        overlay.classList.remove("hidden")
+    }
+    else {
+        overlay.classList.add("hidden")
+    }
+}
+
+model.on("openModal", function (event) {
+    changeModalStatus()
+})
+
+model.on("closeModal", function (event) {
+    changeModalStatus()
+})
+
+function validateCsvHeader(csv) {
+    const lines = csv.trim().split("\n");
+    const headers = lines[0].split(",").map(header => header.trim());
+
+    return headers.length === keyOrder.length && headers.every((header, index) => header === keyOrder[index]);
+}
+
+function csvToArray(csv) {
+    const lines = csv.trim().split("\n");
+    const headers = lines[0].split(",");
+
+    const result = lines.slice(1).map(line => {
+        const values = line.split(",");
+        const obj = {};
+        headers.forEach((header, index) => {
+            obj[header.trim()] = values[index]?.trim() || "";
+        });
+        return obj;
+    });
+
+    return result;
+}
+
+model.on("addCsvFile", async function (event) {
+    const input = template.view.querySelector("#csvFileInput");
+    const file = input.files[0];
+    if (!file) {
+        console.log("No file selected.");
+        return;
+    }
+
+    const reader = new FileReader();
+    const rows = this.get("rows");
+    reader.onload = function (event) {
+        const csvContent = event.target.result;
+        const isValid = validateCsvHeader(csvContent);
+
+        if (!isValid) {
+            console.log("CSV headers do not match the required format.");
+            return;
+        }
+
+        const csvContentFormat = csvToArray(csvContent);
+        csvContentFormat.forEach(row => {
+            model.push('rows', row);
+        })
+        updateCsvFile(rows)
+    };
+    
+    reader.readAsText(file);
+    
+    changeModalStatus()
+})
 
 model.on("addNewRow", function (event) {
     console.log("event", event);

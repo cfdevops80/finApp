@@ -14,17 +14,20 @@
 
 .chiller-table th,
 .chiller-table td {
-    border: 1px solid #000; /* Black border for table cells */
+    border: 1px solid #000;
+    /* Black border for table cells */
     padding: 8px;
 }
 
 .chiller-table th {
-    background-color: #e0e0e0; /* Light gray for table header */
+    background-color: #e0e0e0;
+    /* Light gray for table header */
     font-weight: bold;
 }
 
 .chiller-table tbody tr:nth-child(even) {
-    background-color: #f5f5f5; /* Alternate row coloring */
+    background-color: #f5f5f5;
+    /* Alternate row coloring */
 }
 
 .table-caption {
@@ -32,4 +35,56 @@
     font-size: 14px;
     font-weight: bold;
     margin-top: 5px;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+    z-index: 1;
+}
+
+.hidden {
+    display: none;
+}
+
+.modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.4rem;
+    width: 450px;
+    height: fit-content;
+    padding: 1.3rem;
+    position: absolute;
+    z-index: 2;
+    top: 20%;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+}
+
+.modal .flex {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.modal input {
+    padding: 0.7rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+.modal p {
+    font-size: 0.9rem;
+    color: #777;
+    margin: 0.4rem 0 0.2rem;
 }

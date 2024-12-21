@@ -36,3 +36,13 @@
     <button id="addRowBtn" class="add-row-btn" on-click="addNewRow">Add</button>
     <p class="table-caption">Table 1: Chiller Information (Example)</p>
 </div>
+<section class="modal hidden">
+  <div class="flex">
+    <button class="btn-close" on-click="closeModal">⨉</button>
+  </div>
+  <input id="csvFileInput" type="file" accept=".csv" />
+  <button class="btn" on-click="addCsvFile">Upload</button>
+</section>
+
+<div class="overlay hidden"></div>
+<button class="btn btn-open" on-click="openModal">Open Modal</button>
