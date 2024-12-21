@@ -1,0 +1,62 @@
+<div class="table-container">
+  <table class="chiller-table" id="chillerTable">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Model (Serial Number)</th>
+        <th>Type (Centrifugal/EC Centrifugal/Axial)</th>
+        <th>Motor Power (kW)</th>
+        <th>Input Power (kW)</th>
+        <th>Rate Airflow (m<sup>3</sup>/h)</th>
+        <th>Ext Static Pressure (Pa)</th>
+        <th>Total Static Pressure</th>
+        <th>Colling Capacity (Ton)</th>
+        <th>Filter Type/ Rating</th>
+        <th>Outdoor air provison</th>
+      </tr>
+    </thead>
+    <tbody id="chillerTableBody">
+      {{#each rows as row:rowIndex}}
+      <tr>
+        {{#each row as cell:cellIndex}}
+        <td
+          id="{{rowIndex}}{{cellIndex}}"
+          contenteditable="true"
+          data-row-index="{{rowIndex}}"
+          data-cell-index="{{cellIndex}}"
+          on-input="cellInput"
+          on-blur="cellBlur"
+        >
+          {{cell}}
+        </td>
+        {{/each}}
+        <td>
+          <button
+            id="deleteRowBtn"
+            class="add-row-btn"
+            on-click="deleteRow"
+            data-row-index="{{rowIndex}}"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+      {{/each}}
+      <tr>
+        <td colspan="3">Summaion</td>
+        <td colspan="1">-</td>
+        <td colspan="1">X</td>
+        <td colspan="1">-</td>
+        <td colspan="1">-</td>
+        <td colspan="1">-</td>
+        <td colspan="1">X</td>
+        <td colspan="1">-</td>
+        <td colspan="1"></td>
+      </tr>
+    </tbody>
+  </table>
+  <button id="addRowBtn" class="add-row-btn" on-click="addNewRow">Add</button>
+  <p class="table-caption">
+    Table 3: Ancillary air-side equipment Information (Example)
+  </p>
+</div>
