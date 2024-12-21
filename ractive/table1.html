@@ -1,0 +1,35 @@
+<div class="table-container">
+    <table class="chiller-table" id="chillerTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Description</th>
+                <th>Brand</th>
+                <th>Type</th>
+                <th>Name plate motor (kW)</th>
+                <th>Total Cooling Capacity (RT)</th>
+                <th>Chilled water LWT/EWT</th>
+                <th>Rated Efficiency kW/RT</th>
+                <th>Year Installed</th>
+            </tr>
+        </thead>
+        <tbody id="chillerTableBody">
+            {{#each rows as row:rowIndex}}
+                <tr>
+                    {{#each row as cell:cellIndex}}
+                        <td 
+                            id="{{rowIndex}}{{cellIndex}}"
+                            contenteditable="true" 
+                            data-row-index="{{rowIndex}}"
+                            data-cell-index="{{cellIndex}}"
+                            on-input="cellInput" 
+                            on-blur="cellBlur"
+                        >{{cell}}</td>
+                    {{/each}}
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <button id="addRowBtn" class="add-row-btn" on-click="addNewRow">Add</button>
+    <p class="table-caption">Table 1: Chiller Information (Example)</p>
+</div>
