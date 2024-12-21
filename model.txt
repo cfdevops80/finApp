@@ -1,6 +1,7 @@
 {
     data:
     {
+        chart: [],
         other: "Date Picker",
         start: "Start",
         end  : "End",

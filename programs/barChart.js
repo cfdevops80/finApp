@@ -5,6 +5,32 @@ console.log(selectTarget);
 var selected = selectTarget.value;
 console.log(selected);
 
+var chartObjects = JSON.parse(model.get("chart")).filter(x=> x.type == 'bar')
+console.log(chartObjects)
+
+const amChart = template.view.querySelector("#amCharts");
+console.log(amChart)
+if (amChart) {
+  chartObjects.forEach(obj => {
+      const chartId = "chart" + obj.value;
+      const existingChart = amChart.querySelector(`[id="chart${obj.value}"]`)
+      if (!existingChart) {
+          const newChartDiv = document.createElement("div");
+          newChartDiv.id = chartId;
+          amChart.appendChild(newChartDiv); 
+          const applyHtmlEle = amChart.querySelector(`[id="chart${obj.value}"]`)
+          applyHtmlEle.style = "width: 100%; height: 90%; margin-top: 20px; overflow: visible; text-align: left;"
+          console.log(applyHtmlEle)
+          console.log(obj)
+          renderBarCharts( obj, applyHtmlEle)
+      }else {
+        renderBarCharts( obj, existingChart)
+      }
+  });
+}
+
+
+
 const ranges = [
   { min: 100, max: 200 },
   { min: 200, max: 300 },
@@ -116,89 +142,188 @@ function makeAmChart(chartElement, points) {
   );
 }
 
-if (selected == "other") {
-  top.app.ShowCalendar(
-    null,
-    function (data) {
-      start = moment(data.range.start).format("YYYY-MM-DD");
-      var startPretty = new moment(start).format("MMM D, YYYY");
-      end = moment(data.range.end).format("YYYY-MM-DD");
-      var endPretty = new moment(end).format("MMM D, YYYY");
-      var query = "";
-      if (start == end) {
-        query = start;
-      } else {
-        query = start + ".." + end;
-      }
-      var prettyDate = "";
-      if (startPretty == endPretty) {
-        prettyDate = startPretty;
-      } else {
-        prettyDate = startPretty + " to " + endPretty;
-      }
-      setTimeout(function () {
-        finstack.eval(
-          'readAll(navName == "PltHG").hisRead(' + query + ")",
-          function (data) {
-            queryData = data.result.toObj();
-            var realPoints = data.result.toObj();
-            newPoints = [];
-            let index = 0;
 
-            newPoints = convertRawDataToBarData(realPoints);
-            console.log(realPoints, newPoints);
-
-            var amChartEle = template.view.querySelector("#amChart");
-            makeAmChart(amChartEle, newPoints);
-          }
-        );
-      }, 200);
-
-      model.set("other", prettyDate);
-      model.set("start", "Start");
-      model.set("end", "End");
-      selected = start;
-    },
-    { periods: true }
-  );
-  model.fire("hideInfo")
-} else if (selected == "range") {
-  var startDateTarget = template.view.querySelector("#startDate");
-  var endDateTarget = template.view.querySelector("#endDate");
-  var start = startDateTarget.value;
-  var end = endDateTarget.value;
-  console.log(start, end);
-  finstack.eval(
-    'readAll(navName == "PltHG").hisRead(' + start + ".." + end + ")",
-    function (data) {
-      queryData = data.result.toObj();
-      var realPoints = data.result.toObj();
-      newPoints = [];
-      newPoints = convertRawDataToBarData(realPoints);
-      console.log(realPoints, newPoints);
-
-      var amChartEle = template.view.querySelector("#amChart");
-      makeAmChart(amChartEle, newPoints);
-    }
-  );
-} else {
-  model.fire("hideInfo")
-  setTimeout(function () {
+// Todo sau khi xong hết xóa những hàm cũ, xóa những query cũ liên quan tới thẻ div chartQuery, 'amChart'
+// Giờ chuyển sang dùng model của Ractive để chuyển giao data thay vì  dùng thẻ div 
+function oldRenderBarcharts(){
+  if (selected == "other") {
+    top.app.ShowCalendar(
+      null,
+      function (data) {
+        start = moment(data.range.start).format("YYYY-MM-DD");
+        var startPretty = new moment(start).format("MMM D, YYYY");
+        end = moment(data.range.end).format("YYYY-MM-DD");
+        var endPretty = new moment(end).format("MMM D, YYYY");
+        var query = "";
+        if (start == end) {
+          query = start;
+        } else {
+          query = start + ".." + end;
+        }
+        var prettyDate = "";
+        if (startPretty == endPretty) {
+          prettyDate = startPretty;
+        } else {
+          prettyDate = startPretty + " to " + endPretty;
+        }
+        setTimeout(function () {
+          finstack.eval(
+            'readAll(navName == "PltHG").hisRead(' + query + ")",
+            function (data) {
+              queryData = data.result.toObj();
+              var realPoints = data.result.toObj();
+              newPoints = [];
+              let index = 0;
+  
+              newPoints = convertRawDataToBarData(realPoints);
+              console.log(realPoints, newPoints);
+  
+              var amChartEle = template.view.querySelector("#amChart");
+              makeAmChart(amChartEle, newPoints);
+            }
+          );
+        }, 200);
+  
+        model.set("other", prettyDate);
+        model.set("start", "Start");
+        model.set("end", "End");
+        selected = start;
+      },
+      { periods: true }
+    );
+    model.fire("hideInfo")
+  } else if (selected == "range") {
+    var startDateTarget = template.view.querySelector("#startDate");
+    var endDateTarget = template.view.querySelector("#endDate");
+    var start = startDateTarget.value;
+    var end = endDateTarget.value;
+    console.log(start, end);
     finstack.eval(
-      'readAll(navName == "PltHG").hisRead(2024-03-20..2024-03-21)',
+      'readAll(navName == "PltHG").hisRead(' + start + ".." + end + ")",
       function (data) {
         queryData = data.result.toObj();
         var realPoints = data.result.toObj();
         newPoints = [];
         newPoints = convertRawDataToBarData(realPoints);
         console.log(realPoints, newPoints);
-
+  
         var amChartEle = template.view.querySelector("#amChart");
         makeAmChart(amChartEle, newPoints);
       }
     );
-  }, 200);
-  model.set("other", "Date Picker");
-  model.set("start", "Start");
-  model.set("end", "End");
+  } else {
+    model.fire("hideInfo")
+    setTimeout(function () {
+      finstack.eval(
+        'readAll(navName == "PltHG").hisRead(2024-03-20..2024-03-21)',
+        function (data) {
+          queryData = data.result.toObj();
+          var realPoints = data.result.toObj();
+          newPoints = [];
+          newPoints = convertRawDataToBarData(realPoints);
+          console.log(realPoints, newPoints);
+  
+          var amChartEle = template.view.querySelector("#amChart");
+          makeAmChart(amChartEle, newPoints);
+        }
+      );
+    }, 200);
+    model.set("other", "Date Picker");
+    model.set("start", "Start");
+    model.set("end", "End");
+  }
 }
+
+
+function renderBarCharts(x,y) {
+  if (selected == "other") {
+    top.app.ShowCalendar(
+      null,
+      function (data) {
+        start = moment(data.range.start).format("YYYY-MM-DD");
+        var startPretty = new moment(start).format("MMM D, YYYY");
+        end = moment(data.range.end).format("YYYY-MM-DD");
+        var endPretty = new moment(end).format("MMM D, YYYY");
+        var query = "";
+        if (start == end) {
+          query = start;
+        } else {
+          query = start + ".." + end;
+        }
+        var prettyDate = "";
+        if (startPretty == endPretty) {
+          prettyDate = startPretty;
+        } else {
+          prettyDate = startPretty + " to " + endPretty;
+        }
+        setTimeout(function () {
+          finstack.eval(
+            `readAll(${x.query}).hisRead(${query})`,
+            function (data) {
+              queryData = data.result.toObj();
+              var realPoints = data.result.toObj();
+              newPoints = [];
+              let index = 0;
+  
+              newPoints = convertRawDataToBarData(realPoints);
+              console.log(realPoints, newPoints);
+  
+              makeAmChart(y, newPoints);
+            }
+          );
+        }, 200);
+  
+        model.set("other", prettyDate);
+        model.set("start", "Start");
+        model.set("end", "End");
+        selected = start;
+      },
+      { periods: true }
+    );
+    model.fire("hideInfo")
+  } else if (selected == "range") {
+    var startDateTarget = template.view.querySelector("#startDate");
+    var endDateTarget = template.view.querySelector("#endDate");
+    var start = startDateTarget.value;
+    var end = endDateTarget.value;
+    console.log(start, end);
+    finstack.eval(
+      "readAll(" + x['query'] + ").hisRead(" + start + ".." + end + ")",
+      function (data) {
+        queryData = data.result.toObj();
+        var realPoints = data.result.toObj();
+        newPoints = [];
+        newPoints = convertRawDataToBarData(realPoints);
+        console.log(realPoints, newPoints);
+  
+        makeAmChart(y, newPoints);
+      }
+    );
+  } else {
+    model.fire("hideInfo")
+    setTimeout(function () {
+      finstack.eval(
+        "readAll(" +  
+        x['query'] +
+        ").hisRead(2024-03-20..2024-03-21)",
+        function (data) {
+          queryData = data.result.toObj();
+          var realPoints = data.result.toObj();
+          newPoints = [];
+          newPoints = convertRawDataToBarData(realPoints);
+          console.log(realPoints, newPoints);
+  
+          makeAmChart(y, newPoints);
+        }
+      );
+    }, 200);
+    model.set("other", "Date Picker");
+    model.set("start", "Start");
+    model.set("end", "End");
+  }
+}
+
+
+oldRenderBarcharts()
+
+
