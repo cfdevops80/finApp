@@ -6,8 +6,6 @@ var model = this.ractive;
 var selectTarget = template.view.querySelector(".selectTable");
 var tableTypeSelected = selectTarget.value;
 
-// const keyOrder = ['id', 'description', 'brand', 'type', 'plateMotor', 'coolingCap', 'chilledWater', 'eff', 'year'];
-
 const keyOrderMapping = {
     table1: ['id', 'description', 'brand', 'type', 'plateMotor', 'coolingCap', 'chilledWater', 'eff', 'year'],
     table2: [

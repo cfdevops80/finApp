@@ -12,6 +12,7 @@
             </tr>
         </thead>
         <tbody id="chillerTableBody">
+            {{#if rows}}
             {{#each rows as row:rowIndex}}
                 <tr>
                     {{#each row as cell:cellIndex}}
@@ -29,6 +30,9 @@
                     </td>
                 </tr>
             {{/each}}
+            {{else}}
+                <p>Empty</p>
+            {{/if}}
         </tbody>
     </table>
     <button id="addRowBtn" class="add-row-btn" on-click="addNewRow">Add</button>
