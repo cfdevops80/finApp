@@ -7,6 +7,30 @@ var chartDataTarget = template.view.querySelector("#chartQuery");
 var chartData = JSON.parse(chartDataTarget.value);
 console.log(selected, chartDataTarget.value);
 
+var chartObjects = JSON.parse(model.get("chart")).filter(x=> x.type == 'line')
+console.log(chartObjects)
+
+const amChart = template.view.querySelector("#amCharts");
+console.log(amChart)
+if (amChart) {
+  chartObjects.forEach(obj => {
+      const chartId = "chart" + obj.value;
+      const existingChart = amChart.querySelector(`[id="chart${obj.value}"]`)
+      if (!existingChart) {
+          const newChartDiv = document.createElement("div");
+          newChartDiv.id = chartId;
+          amChart.appendChild(newChartDiv); 
+          const applyHtmlEle = amChart.querySelector(`[id="chart${obj.value}"]`)
+          applyHtmlEle.style = "width: 100%; height: 90%; margin-top: 20px; overflow: visible; text-align: left;"
+          console.log(applyHtmlEle)
+          console.log(obj)
+          renderLineCharts( obj, applyHtmlEle)
+      }else {
+        renderLineCharts( obj, existingChart)
+      }
+  });
+}
+
 function balloonFunctionCustom(graphDataItem, graph) {
   return graph.title + " : " + graphDataItem.values.value;
 }
@@ -61,7 +85,7 @@ function convertRawDataToChartData(
       ? p.v0.toFixed(2)
       : 0;
 
-    groupedByTime[time][`date${dayIndex === 0 ? 7 : dayIndex}`] = p.v0 ? p.v0.toString().includes('e') ? 0 : parseFloat(p.v0.toFixed(2)): 0;
+    groupedByTime[time][`date${dayIndex === 0 ? 7 : dayIndex}`] = p.v0 ? p.v0.toString().includes('e') ? 0 : parseFloat(p.v0.toFixed(2)) : 0;
   });
 }
 
@@ -107,107 +131,87 @@ function makeAmChart(chartElement, points, uniqueDates, chartTitle) {
   );
 }
 
-if (selected == "other") {
-  top.app.ShowCalendar(
-    null,
-    function (data) {
-      start = moment(data.range.start).format("YYYY-MM-DD");
-      var startPretty = new moment(start).format("MMM D, YYYY");
-      end = moment(data.range.end).format("YYYY-MM-DD");
-      var endPretty = new moment(end).format("MMM D, YYYY");
-      var query = "";
-      if (start == end) {
-        query = start;
-      } else {
-        query = start + ".." + end;
-      }
-      var prettyDate = "";
-      if (startPretty == endPretty) {
-        prettyDate = startPretty;
-      } else {
-        prettyDate = startPretty + " to " + endPretty;
-      }
-      setTimeout(function () {
-        console.log("readAll(" + chartData['query'] + ").hisRead(" + query + ").hisRollupAuto(null,null).hisClip")
-        finstack.eval(
-          "readAll(" +
+
+
+
+// Todo sau khi xong hết xóa những hàm cũ, xóa những query cũ liên quan tới thẻ div chartQuery, 'amChart'
+// Giờ chuyển sang dùng model của Ractive để chuyển giao data thay vì  dùng thẻ div 
+function oldRenderLineCharts () {
+  if (selected == "other") {
+    top.app.ShowCalendar(
+      null,
+      function (data) {
+        start = moment(data.range.start).format("YYYY-MM-DD");
+        var startPretty = new moment(start).format("MMM D, YYYY");
+        end = moment(data.range.end).format("YYYY-MM-DD");
+        var endPretty = new moment(end).format("MMM D, YYYY");
+        var query = "";
+        if (start == end) {
+          query = start;
+        } else {
+          query = start + ".." + end;
+        }
+        var prettyDate = "";
+        if (startPretty == endPretty) {
+          prettyDate = startPretty;
+        } else {
+          prettyDate = startPretty + " to " + endPretty;
+        }
+        setTimeout(function () {
+          console.log("readAll(" + chartData['query'] + ").hisRead(" + query + ").hisRollupAuto(null,null).hisClip")
+          finstack.eval(
+            "readAll(" +
             chartData['query'] +
             ").hisRead(" +
             query +
             ").hisRollupAuto(null,null).hisClip",
-          function (data) {
-            queryData = data.result.toObj();
-            var realPoints = data.result.toObj();
-            newPoints = [];
-            uniqueDates = [];
-            const groupedByTime = {};
-            let index = 0;
+            function (data) {
+              queryData = data.result.toObj();
+              var realPoints = data.result.toObj();
+              newPoints = [];
+              uniqueDates = [];
+              const groupedByTime = {};
+              let index = 0;
 
-            convertRawDataToChartData(
-              realPoints,
-              uniqueDates,
-              groupedByTime,
-              index
-            );
-            Object.values(groupedByTime).forEach((item) => {
-              newPoints.push(item);
-            });
+              convertRawDataToChartData(
+                realPoints,
+                uniqueDates,
+                groupedByTime,
+                index
+              );
+              Object.values(groupedByTime).forEach((item) => {
+                newPoints.push(item);
+              });
 
-            var amChartEle = template.view.querySelector("#amChart");
-            makeAmChart(amChartEle, newPoints, uniqueDates, chartData['title']);
-          }
-        );
-      }, 200);
+              var amChartEle = template.view.querySelector("#amChart");
+              makeAmChart(amChartEle, newPoints, uniqueDates, chartData['title']);
+            }
+          );
+        }, 200);
 
-      model.set("other", prettyDate);
-      model.set("start", "Start");
-      model.set("end", "End");
-      selected = start;
-    },
-    { periods: true }
-  );
-  model.fire("hideInfo");
-} else if (selected == "range") {
-  var startDateTarget = template.view.querySelector("#startDate");
-  var endDateTarget = template.view.querySelector("#endDate");
-  var start = startDateTarget.value;
-  var end = endDateTarget.value;
-  console.log(start, end);
-  console.log("readAll(" + chartData['query'] + ").hisRead(" + start + ".." + end + ").hisRollupAuto(null,null).hisClip");
-  finstack.eval(
-    "readAll(" +
+        model.set("other", prettyDate);
+        model.set("start", "Start");
+        model.set("end", "End");
+        selected = start;
+      },
+      { periods: true }
+    );
+    model.fire("hideInfo");
+  } else if (selected == "range") {
+    var startDateTarget = template.view.querySelector("#startDate");
+    var endDateTarget = template.view.querySelector("#endDate");
+    var start = startDateTarget.value;
+    var end = endDateTarget.value;
+    console.log(start, end);
+    console.log("readAll(" + chartData['query'] + ").hisRead(" + start + ".." + end + ").hisRollupAuto(null,null).hisClip");
+    finstack.eval(
+      "readAll(" +
       chartData['query'] +
       ").hisRead(" +
       start +
       ".." +
       end +
       ").hisRollupAuto(null,null).hisClip",
-    function (data) {
-      queryData = data.result.toObj();
-      var realPoints = data.result.toObj();
-      newPoints = [];
-      uniqueDates = [];
-      const groupedByTime = {};
-      let index = 0;
-      convertRawDataToChartData(realPoints, uniqueDates, groupedByTime, index);
-      Object.values(groupedByTime).forEach((item) => {
-        newPoints.push(item);
-      });
-
-      var amChartEle = template.view.querySelector("#amChart");
-      makeAmChart(amChartEle, newPoints, uniqueDates, chartData['title']);
-    }
-  );
-} else {
-  model.fire("hideInfo");
-  setTimeout(function () {
-    console.log("readAll(" + chartData['query'] + ").hisRead(" + selected + ").hisRollupAuto(null,null).hisClip");
-    finstack.eval(
-      "readAll(" +
-        chartData['query'] +
-        ").hisRead(" +
-        selected +
-        ").hisRollupAuto(null,null).hisClip",
       function (data) {
         queryData = data.result.toObj();
         var realPoints = data.result.toObj();
@@ -215,12 +219,7 @@ if (selected == "other") {
         uniqueDates = [];
         const groupedByTime = {};
         let index = 0;
-        convertRawDataToChartData(
-          realPoints,
-          uniqueDates,
-          groupedByTime,
-          index
-        );
+        convertRawDataToChartData(realPoints, uniqueDates, groupedByTime, index);
         Object.values(groupedByTime).forEach((item) => {
           newPoints.push(item);
         });
@@ -229,8 +228,169 @@ if (selected == "other") {
         makeAmChart(amChartEle, newPoints, uniqueDates, chartData['title']);
       }
     );
-  }, 200);
-  model.set("other", "Date Picker");
-  model.set("start", "Start");
-  model.set("end", "End");
+  } else {
+    model.fire("hideInfo");
+    setTimeout(function () {
+      console.log("readAll(" + chartData['query'] + ").hisRead(" + selected + ").hisRollupAuto(null,null).hisClip");
+      finstack.eval(
+        "readAll(" +
+        chartData['query'] +
+        ").hisRead(" +
+        selected +
+        ").hisRollupAuto(null,null).hisClip",
+        function (data) {
+          queryData = data.result.toObj();
+          var realPoints = data.result.toObj();
+          newPoints = [];
+          uniqueDates = [];
+          const groupedByTime = {};
+          let index = 0;
+          convertRawDataToChartData(
+            realPoints,
+            uniqueDates,
+            groupedByTime,
+            index
+          );
+          Object.values(groupedByTime).forEach((item) => {
+            newPoints.push(item);
+          });
+
+          var amChartEle = template.view.querySelector("#amChart");
+          makeAmChart(amChartEle, newPoints, uniqueDates, chartData['title']);
+        }
+      );
+    }, 200);
+    model.set("other", "Date Picker");
+    model.set("start", "Start");
+    model.set("end", "End");
+  }
 }
+
+
+function renderLineCharts(x,y) {
+  if (selected == "other") {
+    top.app.ShowCalendar(
+      null,
+      function (data) {
+        start = moment(data.range.start).format("YYYY-MM-DD");
+        var startPretty = new moment(start).format("MMM D, YYYY");
+        end = moment(data.range.end).format("YYYY-MM-DD");
+        var endPretty = new moment(end).format("MMM D, YYYY");
+        var query = "";
+        if (start == end) {
+          query = start;
+        } else {
+          query = start + ".." + end;
+        }
+        var prettyDate = "";
+        if (startPretty == endPretty) {
+          prettyDate = startPretty;
+        } else {
+          prettyDate = startPretty + " to " + endPretty;
+        }
+        setTimeout(function () {
+          console.log("readAll(" + x['query'] + ").hisRead(" + query + ").hisRollupAuto(null,null).hisClip")
+          finstack.eval(
+            "readAll(" +
+            x['query'] +
+            ").hisRead(" +
+            query +
+            ").hisRollupAuto(null,null).hisClip",
+            function (data) {
+              queryData = data.result.toObj();
+              var realPoints = data.result.toObj();
+              newPoints = [];
+              uniqueDates = [];
+              const groupedByTime = {};
+              let index = 0;
+
+              convertRawDataToChartData(
+                realPoints,
+                uniqueDates,
+                groupedByTime,
+                index
+              );
+              Object.values(groupedByTime).forEach((item) => {
+                newPoints.push(item);
+              });
+
+              makeAmChart(y, newPoints, uniqueDates, x['title']);
+            }
+          );
+        }, 200);
+
+        model.set("other", prettyDate);
+        model.set("start", "Start");
+        model.set("end", "End");
+        selected = start;
+      },
+      { periods: true }
+    );
+    model.fire("hideInfo");
+  } else if (selected == "range") {
+    var startDateTarget = template.view.querySelector("#startDate");
+    var endDateTarget = template.view.querySelector("#endDate");
+    var start = startDateTarget.value;
+    var end = endDateTarget.value;
+    console.log(start, end);
+    console.log("readAll(" + x['query'] + ").hisRead(" + start + ".." + end + ").hisRollupAuto(null,null).hisClip");
+    finstack.eval(
+      "readAll(" +
+      x['query'] +
+      ").hisRead(" +
+      start +
+      ".." +
+      end +
+      ").hisRollupAuto(null,null).hisClip",
+      function (data) {
+        queryData = data.result.toObj();
+        var realPoints = data.result.toObj();
+        newPoints = [];
+        uniqueDates = [];
+        const groupedByTime = {};
+        let index = 0;
+        convertRawDataToChartData(realPoints, uniqueDates, groupedByTime, index);
+        Object.values(groupedByTime).forEach((item) => {
+          newPoints.push(item);
+        });
+
+        makeAmChart(y, newPoints, uniqueDates, x['title']);
+      }
+    );
+  } else {
+    model.fire("hideInfo");
+    setTimeout(function () {
+      console.log("readAll(" + x['query'] + ").hisRead(" + selected + ").hisRollupAuto(null,null).hisClip");
+      finstack.eval(
+        "readAll(" +
+        x['query'] +
+        ").hisRead(" +
+        selected +
+        ").hisRollupAuto(null,null).hisClip",
+        function (data) {
+          queryData = data.result.toObj();
+          var realPoints = data.result.toObj();
+          newPoints = [];
+          uniqueDates = [];
+          const groupedByTime = {};
+          let index = 0;
+          convertRawDataToChartData(
+            realPoints,
+            uniqueDates,
+            groupedByTime,
+            index
+          );
+          Object.values(groupedByTime).forEach((item) => {
+            newPoints.push(item);
+          });
+
+          makeAmChart(y, newPoints, uniqueDates, x['title']);
+        }
+      );
+    }, 200);
+    model.set("other", "Date Picker");
+    model.set("start", "Start");
+    model.set("end", "End");
+  }
+}
+oldRenderLineCharts()

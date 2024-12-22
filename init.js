@@ -80,7 +80,7 @@ var typeChartMapping = {
   8: {
     title: "Super-imposed plot of daily condenser water GPM/RT",
     value: 8,
-    query: 'navName == ""CWBypassFlow"" or navName == ""PltHG""',
+    query: 'navName == "CWBypassFlow" or navName == "PltHG"',
     type: "line"
   },
   10: {
@@ -107,14 +107,14 @@ var typeChartMapping = {
     query: 'efficiency and equipRef->navName=="Primary Chilled Water Pump Total"',
     type: "line"
   },
-  
+
   11.1: {
     title: "Super-imposed plot of daily Primary Chilled Water Pump 1 efficiency kW/RT",
     value: 11.1,
     query: 'efficiency and equipRef->navName=="Primary Chilled Water Pump 1"',
     type: "line"
   },
-  
+
   11.2: {
     title: "Super-imposed plot of daily Primary Chilled Water Pump 2 efficiency kW/RT",
     value: 11.2,
@@ -124,7 +124,7 @@ var typeChartMapping = {
   11.3: {
     title: "Super-imposed plot of daily Primary Chilled Water Pump 3 efficiency kW/RT",
     value: 11.3,
-    query: 'efficiency and equipRef->navName=="Primary Chilled Water Pump 3"',
+    query: 'efficiency and equipRef->navName=="Alcon Primary Chilled Water Pump 3"',
     type: "line"
   },
   11.4: {
@@ -372,7 +372,7 @@ model.on("chartTypeChange", function (event) {
     eventName = eventMappingName[typeSelected]
     for (var key of Object.keys(classMappingName)) {
       var selectTarget = template.view.querySelector(`.${classMappingName[key]}`);
-      if(typeSelected == key) {
+      if (typeSelected == key) {
         selectTarget.style.display = 'block'
       }
       else {
@@ -382,14 +382,14 @@ model.on("chartTypeChange", function (event) {
   }
 
   var chartQueryTarget = template.view.querySelector("#chartQuery");
-  switch(typeSelected){
-    case  "line":
+  switch (typeSelected) {
+    case "line":
       chartQueryTarget.value = JSON.stringify(typeChartMapping[1])
       break;
-    case "buble": 
+    case "buble":
       chartQueryTarget.value = JSON.stringify(typeChartMapping[15])
       break;
-    case "bar": 
+    case "bar":
       chartQueryTarget.value = JSON.stringify(typeChartMapping[2])
       break;
   }
@@ -397,23 +397,62 @@ model.on("chartTypeChange", function (event) {
   model.fire(eventName)
 });
 
+
+
+
+//Todo: xóa những gì liên quan tới chartQuery, amChart: file init, template, initProgram, các file chartChange
 model.on("typeChange", function (event) {
   typeSelected = event.node.value;
   console.log("Chart Value Select", typeSelected);
 
-  const chartType = typeChartMapping[typeSelected].type
-  if (typeChartMapping.hasOwnProperty(typeSelected)) {
-    var chartQueryTarget = template.view.querySelector("#chartQuery");
-    chartQueryTarget.value = JSON.stringify(typeChartMapping[typeSelected])
-    console.log("chartQueryTarget", chartQueryTarget);
+  var selectedOptions = model.get("selectedOptions")
+  console.log("selectedOptions", selectedOptions)
+  if (selectedOptions) {
+    var chartObjects = selectedOptions.map(x => typeChartMapping[Number(x)])
+
+    // Kiểm tra xem những cái nào cần xóa
+    var existingCharts = model.get("chart")
+    if (existingCharts) {
+      var currentChartObjects = JSON.parse(existingCharts)
+      currentChartObjects.forEach(item => {
+        if (typeChartMapping[item.value] && !selectedOptions.map(x => Number(x.id)).includes(item.value)) {
+          const amChart = template.view.querySelector("#amCharts");
+          const deleteChartEle = amChart.querySelector(`[id="chart${item.value}"]`)
+          if(deleteChartEle) deleteChartEle.remove()
+        }
+      })
+    }
+
+    const chartType = typeChartMapping[typeSelected].type
+    if (typeChartMapping.hasOwnProperty(typeSelected)) {
+      var chartQueryTarget = template.view.querySelector("#chartQuery");
+      chartQueryTarget.value = JSON.stringify(typeChartMapping[typeSelected])
+      var queries = JSON.stringify(chartObjects)
+      model.set("chart", queries)
+      console.log("chartQueryTarget", chartQueryTarget);
+    }
+    console.log(chartType)
+    console.log("eventName: ", eventMappingName[chartType]);
+
+    Object.keys(eventMappingName).forEach((type) => {
+      const filteredCharts = chartObjects.filter((chart) => chart.type === type);
+      if (filteredCharts.length > 0) {
+        model.fire(eventMappingName[type]);
+      }
+    });
+  } else {
+    const amChart = template.view.querySelector("#amCharts");
+    if (amChart) {
+      amChart.innerHTML = "";
+      console.log("All child elements have been removed, amCharts is still intact.");
+    }
   }
-  console.log(chartType)
-  console.log("eventName: ", eventMappingName[chartType]);
-  model.fire(eventMappingName[chartType]);
+
 })
 
 model.on("dateChange", function (event) {
   selected = event.node.value;
+  console.log("dateChange", selected)
   if (selected == "other") {
     model.fire(eventName)
   } else if (selected == "range") {
@@ -456,5 +495,15 @@ model.on("end", function (event) {
 });
 
 model.on("go", function (event) {
-  model.fire(eventName)
+  var selectedOptions = model.get("selectedOptions")
+  console.log("selectedOptions", selectedOptions)
+  if (selectedOptions) {
+    var chartObjects = selectedOptions.map(x => typeChartMapping[Number(x)])
+  }
+  Object.keys(eventMappingName).forEach((type) => {
+    const filteredCharts = chartObjects.filter((chart) => chart.type === type);
+    if (filteredCharts.length > 0) {
+      model.fire(eventMappingName[type]);
+    }
+  });
 });
