@@ -73,6 +73,25 @@ function makeAmChart(chartElement, points, chartTitle) {
       type: "xy",
       theme: "none",
       dataProvider: points,
+      chartCursor: {
+        zoomable: true,
+        categoryBalloonEnabled: true,
+        cursorAlpha: 0.1,
+        categoryBalloonDateFormat: "JJ:NN, MMMM DD",
+        cursorPosition: "mouse",
+        fullWidth: false,
+      },
+      chartScrollbar: {
+        enabled: true, 
+        scrollbarHeight: 20,
+        backgroundAlpha: 0.1,
+        selectedBackgroundAlpha: 0.3,
+        selectedBackgroundColor: "#888888",
+        graphFillAlpha: 0,
+        graphLineAlpha: 0.5,
+        selectedGraphLineAlpha: 1,
+        selectedGraphFillAlpha: 0,
+      },
       titles: [
         {
           text: chartTitle ?? "Plant Efficiency VS Load",

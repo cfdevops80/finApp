@@ -111,14 +111,25 @@ function makeAmChart(chartElement, points, uniqueDates, chartTitle) {
       },
       startDuration: 1,
       chartCursor: {
+        zoomable: true,
+        categoryBalloonEnabled: true,
+        cursorAlpha: 0.1,
         categoryBalloonDateFormat: "JJ:NN, MMMM DD",
         cursorPosition: "mouse",
+        fullWidth: false,
       },
       trendLines: [],
       graphs: uniqueDates,
-      chartCursor: {
-        categoryBalloonDateFormat: "JJ:NN",
-        cursorPosition: "mouse",
+      chartScrollbar: {
+        enabled: true, 
+        scrollbarHeight: 20,
+        backgroundAlpha: 0.1,
+        selectedBackgroundAlpha: 0.3,
+        selectedBackgroundColor: "#888888",
+        graphFillAlpha: 0,
+        graphLineAlpha: 0.5,
+        selectedGraphLineAlpha: 1,
+        selectedGraphFillAlpha: 0,
       },
       legend: {
         useGraphSettings: false,
