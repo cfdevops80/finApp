@@ -40,6 +40,26 @@ model.on("closeModal", function (event) {
     changeModalStatus()
 })
 
+function download(filename, text) {
+    console.log("filename", filename);
+    console.log("text", text);
+    var element = document.createElement('a');
+    console.log("element", element);
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+     
+    element.style.display = 'none';
+    document.body.appendChild(element);
+     
+    element.click();
+     
+    document.body.removeChild(element);
+}
+
+model.on("downloadTemplate", function (event) {
+    download("template.csv",keyOrder.join(","));
+})
+
 function validateCsvHeader(csv) {
     const lines = csv.trim().split("\n");
     const headers = lines[0].split(",").map(header => header.trim());
