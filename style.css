@@ -1,59 +1,97 @@
-.s-margin{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    gap: 50px;
+.s-margin {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
 }
-.s-text{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    height: 30px;
-    margin-left: 10px;
+.s-text {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 30px;
+  margin-left: 10px;
 }
-.s-compare{
-    margin-left: 10px;
-    height: 30px;
-    background-color: #f8f8f8;
-    border: 1.3px solid #bcbcbc;
-    border-radius: 4px;
-    padding-right: 8px;
-    padding-left: 8px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+.s-compare {
+  margin-left: 10px;
+  height: 30px;
+  background-color: #f8f8f8;
+  border: 1.3px solid #bcbcbc;
+  border-radius: 4px;
+  padding-right: 8px;
+  padding-left: 8px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
-.s-compare:hover{
-    cursor: pointer;
-    background-color: #ededed;
+.s-compare:hover {
+  cursor: pointer;
+  background-color: #ededed;
 }
-.selectSize, .selectTypeChart, .selectLineChartType, .selectBarChartType, .selectBubleChartType{
-    width: 210px;
-    height: 30px;
+.selectSize,
+.selectTypeChart,
+.selectLineChartType,
+.selectBarChartType,
+.selectBubleChartType {
+  width: 210px;
+  height: 30px;
 }
-.s-horizontal{
-    flex-direction: row;
-    align-items: center;
-    font-weight: bold;
-    display: flex;
+.s-horizontal {
+  flex-direction: row;
+  align-items: center;
+  font-weight: bold;
+  display: flex;
 }
-.s-circle{
-    border-radius: 50%;
-    margin-left: 10px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    font-weight: bold;
-    justify-content: center;
-    font-size: 15px;
-    height: 30px;
-    width: 30px;
+.s-circle {
+  border-radius: 50%;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-weight: bold;
+  justify-content: center;
+  font-size: 15px;
+  height: 30px;
+  width: 30px;
 }
-.s-circle:hover{
-    background-color:#63b4e4;
-    cursor: pointer;
+.s-circle:hover {
+  background-color: #63b4e4;
+  cursor: pointer;
 }
 #amChartXtitle {
-    text-align: center;
-    font-weight: 700;
+  text-align: center;
+  font-weight: 700;
+}
+
+.select {
+  display: inline-block;
+  padding: 0 16px;
+  width: 300px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid #dedede;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.multipleSelect {
+  width: 500px;
+  height: 100px;
+  margin: 20px 0;
+}
+
+.multipleSelect option {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 5px 0;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.wrapper-chart {
+  width: 100%;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 20px;
 }

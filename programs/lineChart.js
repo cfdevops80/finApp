@@ -22,6 +22,7 @@ if (amChart) {
           amChart.appendChild(newChartDiv); 
           const applyHtmlEle = amChart.querySelector(`[id="chart${obj.value}"]`)
           applyHtmlEle.style = "width: 100%; height: 90%; margin-top: 20px; overflow: visible; text-align: left;"
+          applyHtmlEle.classList.add("wrapper-chart")
           console.log(applyHtmlEle)
           console.log(obj)
           renderLineCharts( obj, applyHtmlEle)
