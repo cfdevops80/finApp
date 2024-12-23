@@ -5,6 +5,7 @@
         other: "Date Picker",
         start: "Start",
         end  : "End",
-        range: "Custom Range"
+        range: "Custom Range",
+        coolingTowerTotal: [],
     }
 }
