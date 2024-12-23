@@ -400,7 +400,6 @@ model.on("chartTypeChange", function (event) {
   model.fire(eventName)
 });
 
-//Todo: xóa những gì liên quan tới chartQuery, amChart: file init, template, initProgram, các file chartChange
 model.on("typeChange", function (event) {
   typeSelected = event.node.value;
   console.log("Chart Value Select", typeSelected);
