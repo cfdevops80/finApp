@@ -96,17 +96,29 @@
   border-radius: 20px;
 }
 
-.container-info-detail {
+.container-info-detail-title {
   width: 100%;
   max-width: 1000px;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 20px;
   border-radius: 20px;
   padding: 15px;
   border: 1px solid #bcbcbc;
   margin-bottom: 20px;
   background-color: white;
+}
+
+.container-info-detail-title h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+}
+
+.container-info-detail {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
 }
 
 .wrapper-info-detail {

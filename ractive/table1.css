@@ -170,3 +170,7 @@
   gap: 10px;
   width: auto !important;
 }
+
+.chiller-table .no-data {
+    text-align: center;
+}
