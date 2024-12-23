@@ -133,3 +133,17 @@
   margin: 0;
   text-align: center;
 }
+
+.date-range {
+  padding: 0 16px;
+  min-width: 100px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid #dedede;
+  -webkit-appearance: none;
+  appearance: none;
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  background-color: white;
+}
