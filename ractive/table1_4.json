@@ -1,0 +1,21 @@
+{
+  data: {
+    rows: {
+      table1: [],
+      table2: []
+    },
+    table1Row: [],
+    table2Row: [],
+    headers: {
+        table1: ['ID', 'Description', 'Brand', 'Type', 'Name plate motor (kW)', 'Total Cooling Capacity (RT)', 'Chilled water LWT/EWT', 'Rated Efficiency kW/RT', 'Year Installed'],
+        table2: ['ID', 'Brand', 'Type', 'Name plate motor (kW)', 'Pump Head (m)', 'Flow rate (L/S)', 'Rated Pump/Fan efficiency', 'Rated Motor Efficiency'],
+        table3: [],
+        table4: []
+    },
+    tableTitle: {
+      table1: "Table 1: Chiller Information (Example)",
+      table2: "Table 2: Ancillary water-side equipment Information (Example)"
+    },
+    tableArr: ["table1", "table2"]
+  }
+}

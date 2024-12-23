@@ -1,0 +1,89 @@
+{{#each tableArr as table:tableIdx}}
+<div class="table-container">
+    <div class="wrapper-btn">
+        <button class="modal-btn btn" on-click="openModal" data-table-id="{{table}}">Import CSV</button>
+        <button id="addRowBtn" class="add-row-btn btn" data-table-id="{{table}}" on-click="addNewRow">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px"
+                viewBox="0 -960 960 960" width="24px" fill="#fff">
+                <path
+                    d="M440-280h80v-160h160v-80H520v-160h-80v160H280v80h160v160Zm40 200q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
+            </svg>
+            Add
+        </button>
+    </div>
+
+    <table class="chiller-table" id="chillerTable">
+        <thead>
+            <tr>
+                {{ #each headers[table] as header:idx }}
+                    <th>{{header}}</th>
+                {{/each}}
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="chillerTableBody">
+            {{#if rows[table]}}
+                {{#each rows[table] as row:rowIndex}}
+                    <tr>
+                        {{#each row as cell:cellIndex}}
+                        <td id="{{rowIndex}}{{cellIndex}}" contenteditable="true"
+                            data-row-index="{{rowIndex}}" data-cell-index="{{cellIndex}}"
+                            data-table-id="{{table}}"
+                            on-input="cellInput" on-blur="cellBlur">
+                            {{cell}}
+                        </td>
+                        {{/each}}
+                        <td>
+                            <button id="deleteRowBtn" class="delete-row-btn"
+                                on-click="deleteRow" data-row-index="{{rowIndex}}" data-table-id="{{table}}">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px"
+                                    viewBox="0 -960 960 960" width="24px" fill="#f44336">
+                                    <path
+                                        d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
+                                </svg>
+                            </button>
+                        </td>
+                    </tr>
+                {{/each}}
+            {{else}}
+            <p>Empty</p>
+            {{/if}}
+        </tbody>
+    </table>
+    <p class="table-caption">{{tableTitle[table]}}</p>
+</div>
+
+<div class="divider"></div>
+{{/each}}
+
+<section class="modal hidden">
+    <div class="flex">
+        <button class="btn-close" on-click="closeModal">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px"
+                viewBox="0 -960 960 960" width="24px" fill="#000">
+                <path
+                    d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+            </svg>
+        </button>
+    </div>
+    <button class="btn download-btn" on-click="downloadTemplate">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
+            width="24px" fill="#fff">
+            <path
+                d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z" />
+        </svg>
+        Download template
+    </button>
+    <input id="csvFileInput" type="file" accept=".csv" />
+
+    <button class="btn upload-btn" on-click="addCsvFile">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
+            width="24px" fill="#fff">
+            <path
+                d="M440-320v-326L336-542l-56-58 200-200 200 200-56 58-104-104v326h-80ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z" />
+        </svg>
+        Upload
+    </button>
+</section>
+
+<div class="overlay hidden"></div>
