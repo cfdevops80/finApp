@@ -95,3 +95,41 @@
   background-color: #fff;
   border-radius: 20px;
 }
+
+.container-info-detail {
+  width: 100%;
+  max-width: 1000px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  border-radius: 20px;
+  padding: 15px;
+  border: 1px solid #bcbcbc;
+  margin-bottom: 20px;
+  background-color: white;
+}
+
+.wrapper-info-detail {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  padding: 10px;
+  background-color: #6daece;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+
+.wrapper-info-detail h2 {
+  border: none;
+  background-color: transparent;
+  color: white;
+  font-weight: 700;
+}
+
+.wrapper-info-detail p {
+  border: none;
+  background-color: transparent;
+  color: white;
+  font-weight: 500;
+  margin: 0;
+  text-align: center;
+}
