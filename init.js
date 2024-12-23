@@ -9,6 +9,10 @@ var selected = "thisWeek";
 var start = "Start";
 var end = "End";
 
+finstack.eval('read(equipRef->navName=="Cooling Tower Total")', function(data){
+  template.coolingTowerTotal=data.result.toObj();
+});
+
 var eventMappingName = {
   "line": "changeLineChart",
   "buble": "changeBubleChart",
@@ -362,7 +366,6 @@ var typeChartMapping = {
   // }
 };
 
-
 model.fire("hideInfo")
 
 model.on("chartTypeChange", function (event) {
@@ -397,10 +400,6 @@ model.on("chartTypeChange", function (event) {
   model.fire(eventName)
 });
 
-
-
-
-//Todo: xóa những gì liên quan tới chartQuery, amChart: file init, template, initProgram, các file chartChange
 model.on("typeChange", function (event) {
   typeSelected = event.node.value;
   console.log("Chart Value Select", typeSelected);

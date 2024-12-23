@@ -1,59 +1,161 @@
-.s-margin{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    gap: 50px;
+.s-margin {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
 }
-.s-text{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    height: 30px;
-    margin-left: 10px;
+.s-text {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 30px;
+  margin-left: 10px;
 }
-.s-compare{
-    margin-left: 10px;
-    height: 30px;
-    background-color: #f8f8f8;
-    border: 1.3px solid #bcbcbc;
-    border-radius: 4px;
-    padding-right: 8px;
-    padding-left: 8px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+.s-compare {
+  margin-left: 10px;
+  height: 30px;
+  background-color: #f8f8f8;
+  border: 1.3px solid #bcbcbc;
+  border-radius: 4px;
+  padding-right: 8px;
+  padding-left: 8px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
-.s-compare:hover{
-    cursor: pointer;
-    background-color: #ededed;
+.s-compare:hover {
+  cursor: pointer;
+  background-color: #ededed;
 }
-.selectSize, .selectTypeChart, .selectLineChartType, .selectBarChartType, .selectBubleChartType{
-    width: 210px;
-    height: 30px;
+.selectSize,
+.selectTypeChart,
+.selectLineChartType,
+.selectBarChartType,
+.selectBubleChartType {
+  width: 210px;
+  height: 30px;
 }
-.s-horizontal{
-    flex-direction: row;
-    align-items: center;
-    font-weight: bold;
-    display: flex;
+.s-horizontal {
+  flex-direction: row;
+  align-items: center;
+  font-weight: bold;
+  display: flex;
 }
-.s-circle{
-    border-radius: 50%;
-    margin-left: 10px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    font-weight: bold;
-    justify-content: center;
-    font-size: 15px;
-    height: 30px;
-    width: 30px;
+.s-circle {
+  border-radius: 50%;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-weight: bold;
+  justify-content: center;
+  font-size: 15px;
+  height: 30px;
+  width: 30px;
 }
-.s-circle:hover{
-    background-color:#63b4e4;
-    cursor: pointer;
+.s-circle:hover {
+  background-color: #63b4e4;
+  cursor: pointer;
 }
 #amChartXtitle {
-    text-align: center;
-    font-weight: 700;
+  text-align: center;
+  font-weight: 700;
+}
+
+.select {
+  display: inline-block;
+  padding: 0 16px;
+  width: 300px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid #dedede;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.multipleSelect {
+  width: 500px;
+  height: 100px;
+  margin: 20px 0;
+}
+
+.multipleSelect option {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 5px 0;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.wrapper-chart {
+  width: 100%;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 20px;
+}
+
+.container-info-detail-title {
+  width: 100%;
+  max-width: 1000px;
+  border-radius: 20px;
+  padding: 15px;
+  border: 1px solid #bcbcbc;
+  margin-bottom: 20px;
+  background-color: white;
+}
+
+.container-info-detail-title h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+}
+
+.container-info-detail {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}
+
+.wrapper-info-detail {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  padding: 10px;
+  background-color: #6daece;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+
+.wrapper-info-detail h2 {
+  border: none;
+  background-color: transparent;
+  color: white;
+  font-weight: 700;
+}
+
+.wrapper-info-detail p {
+  border: none;
+  background-color: transparent;
+  color: white;
+  font-weight: 500;
+  margin: 0;
+  text-align: center;
+}
+
+.date-range {
+  padding: 0 16px;
+  min-width: 100px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid #dedede;
+  -webkit-appearance: none;
+  appearance: none;
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  background-color: white;
 }

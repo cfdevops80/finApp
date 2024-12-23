@@ -20,6 +20,7 @@ if (amChart) {
           amChart.appendChild(newChartDiv); 
           const applyHtmlEle = amChart.querySelector(`[id="chart${obj.value}"]`)
           applyHtmlEle.style = "width: 100%; height: 90%; margin-top: 20px; overflow: visible; text-align: left;"
+          applyHtmlEle.classList.add("wrapper-chart")
           console.log(applyHtmlEle)
           console.log(obj)
           renderBarCharts( obj, applyHtmlEle)
@@ -123,9 +124,23 @@ function makeAmChart(chartElement, points) {
         },
       ],
       chartCursor: {
-        categoryBalloonEnabled: false,
-        cursorAlpha: 0,
-        zoomable: false,
+        zoomable: true,
+        categoryBalloonEnabled: true,
+        cursorAlpha: 0.1,
+        categoryBalloonDateFormat: "JJ:NN, MMMM DD",
+        cursorPosition: "mouse",
+        fullWidth: false,
+      },
+      chartScrollbar: {
+        enabled: true, 
+        scrollbarHeight: 20,
+        backgroundAlpha: 0.1,
+        selectedBackgroundAlpha: 0.3,
+        selectedBackgroundColor: "#888888",
+        graphFillAlpha: 0,
+        graphLineAlpha: 0.5,
+        selectedGraphLineAlpha: 1,
+        selectedGraphFillAlpha: 0,
       },
       categoryField: "date",
       categoryAxis: {
