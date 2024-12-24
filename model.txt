@@ -6,6 +6,6 @@
         start: "Start",
         end  : "End",
         range: "Custom Range",
-        coolingTowerTotal: [],
+        coolingTowerTotal: "[]",
     }
 }

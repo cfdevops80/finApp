@@ -11,6 +11,7 @@ var end = "End";
 
 finstack.eval('read(equipRef->navName=="Cooling Tower Total")', function(data){
   template.coolingTowerTotal=data.result.toObj();
+  model.set('coolingTowerTotal',data.result.toObj())
 });
 
 var eventMappingName = {
