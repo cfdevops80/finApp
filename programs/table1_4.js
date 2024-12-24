@@ -1,28 +1,16 @@
 var template = this;
+var model = this.ractive
 
-const keyOrderMapping = {
-    table1: ['id', 'description', 'brand', 'type', 'plateMotor', 'coolingCap', 'chilledWater', 'eff', 'year'],
-    table2: [
-        "id",
-        "brand",
-        "type",
-        "plateMotor",
-        "pumpHead",
-        "flowRate",
-        "fanEff",
-        "motorEff",
-      ]
-}
+const keyOrderMapping = model.get("keyOrderMapping")
 
-const fileName = {
-    table1: "table1.csv",
-    table2: "table2.csv"
-}
+const fileName = model.get("fileName")
 
-let tempRows = {
-    table1: [],
-    table2: []
-}
+const tableArr = model.get("tableArr")
+
+let tempRows = tableArr.reduce((acc, curr) => {
+    acc[curr] = [];
+    return acc;
+}, {});
 
 function resortKeys(obj, keyArr) {
     return keyArr.reduce((acc, key) => {

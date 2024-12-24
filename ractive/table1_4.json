@@ -2,20 +2,34 @@
   data: {
     rows: {
       table1: [],
-      table2: []
+      table2: [],
+      table3: [],
+      table4: []
     },
-    table1Row: [],
-    table2Row: [],
     headers: {
         table1: ['ID', 'Description', 'Brand', 'Type', 'Name plate motor (kW)', 'Total Cooling Capacity (RT)', 'Chilled water LWT/EWT', 'Rated Efficiency kW/RT', 'Year Installed'],
         table2: ['ID', 'Brand', 'Type', 'Name plate motor (kW)', 'Pump Head (m)', 'Flow rate (L/S)', 'Rated Pump/Fan efficiency', 'Rated Motor Efficiency'],
-        table3: [],
-        table4: []
+        table3: ["ID","Model (Serial Number)","Type (Centrifugal/EC Centrifugal/Axial)","Motor Power (kW)","Input Power (kW)","Rate Airflow (m3/h)","Ext Static Pressure (Pa)","Total Static Pressure","Colling Capacity (Ton)","Filter Type/ Rating","Outdoor air provison"],
+        table4: ["ID / Serial No.","Brand","Sensor Type","Installation Location","Measurement Uncertainty (%)","Last Calibration Date","Calibration Laboratory"]
     },
     tableTitle: {
       table1: "Table 1: Chiller Information (Example)",
-      table2: "Table 2: Ancillary water-side equipment Information (Example)"
+      table2: "Table 2: Ancillary water-side equipment Information (Example)",
+      table3: "Table 3: Ancillary air-side equipment Information (Example)",
+      table4: "Table 4: Instrumentation Table (Example)"
     },
-    tableArr: ["table1", "table2"]
+    keyOrderMapping: {
+      table1: ['id', 'description', 'brand', 'type', 'plateMotor', 'coolingCap', 'chilledWater', 'eff', 'year'],
+      table2: ["id","brand","type","plateMotor","pumpHead","flowRate","fanEff","motorEff"],
+      table3: ["id","model","type","motorPower","inputPower","ratedAirflow","extStaticPressure","totalStaticPressure","coolingCapacity","filteTypeRating","outdoorAirProvision"],
+      table4: ["id","brand","sensorType","installationLocation","measurementUncertainty","lastCalibrationDate","calibrationLaboratory"]
+    },
+    fileName: {
+      table1: "table1.csv",
+      table2: "table2.csv",
+      table3: "table3.csv",
+      table4: "table4.csv"
+    },
+    tableArr: ["table1", "table2", "table3", "table4"]
   }
 }
