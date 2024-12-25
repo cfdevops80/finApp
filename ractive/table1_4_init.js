@@ -1,4 +1,5 @@
 this.ractive.fire("obtainData");
+this.ractive.fire("initFixTable");
 
 var template = this;
 var model = this.ractive;
