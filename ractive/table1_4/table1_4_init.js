@@ -6,9 +6,9 @@ var model = this.ractive;
 
 var tableTypeSelected = "";
 
-const keyOrderMapping = this.get("keyOrderMapping")
+const keyOrderMapping = model.get("keyOrderMapping")
 
-const fileName = this.get("fileName")
+const fileName = model.get("fileName")
 
 const refreshType = () => {
     var selectTarget = template.view.querySelector(".selectTable");
